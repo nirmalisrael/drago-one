@@ -59,6 +59,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
       {icon && <Typography sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>{icon}</Typography>}
       <Typography variant="body1" sx={{
         fontWeight: active ? theme.typography.fontWeightMedium : theme.typography.fontWeightRegular,
+        fontSize: theme.typography.fontSize,
         ml: !icon ? 2 : 0
       }}>
         {label}

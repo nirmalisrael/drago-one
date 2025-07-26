@@ -42,6 +42,9 @@ const theme = createTheme({
     body1: {
       fontSize: '1rem', // Customize body text
     },
+    body2: {
+      fontSize: '0.875rem', // Customize smaller body text
+    },
   },
   spacing: 8, // You can adjust the spacing globally (default is 8px)
   shape: {

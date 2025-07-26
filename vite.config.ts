@@ -10,8 +10,8 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
-  server: {
-    host: '192.168.1.243',  // Change to your desired host
-    port: 3001,  // Set to your desired port
-  }
+  // server: {
+  //   host: '192.168.1.243',  // Change to your desired host
+  //   port: 3001,  // Set to your desired port
+  // }
 })
