@@ -3,8 +3,8 @@ import { Box, Typography, Collapse, List } from '@mui/material';
 import { Link as RouterLink, useLocation, matchPath } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import type { MenuItemType } from './types/DrawerTypes';
 import { useTheme } from '@mui/material/styles';
+import type { MenuItemType } from '../../types/DrawerTypes';
 
 interface MenuItemProps {
   label: string;
@@ -35,7 +35,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         alignItems: 'center',
         width: '100%',
         textDecoration: 'none',
-        color: active ? theme.palette.background.default : 'inherit',
+        color: active ? theme.palette.background.default : theme.palette.primary.main,
         padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
         paddingLeft,
         marginBottom: theme.spacing(1),
@@ -47,20 +47,25 @@ const MenuItem: React.FC<MenuItemProps> = ({
           backgroundColor: active
             ? theme.palette.secondary.main  // Light background for active item on hover
             : theme.palette.action.hover,   // Default hover background color
-          color: active ? '#000000' : 'inherit', // Ensure text is black when active, otherwise inherit color
+          color: active ? '#000000' : theme.palette.primary.main, // Ensure text is black when active, otherwise inherit color
           cursor: 'pointer', // Ensure cursor is a pointer on hover
         },
         transition: 'background-color 200ms ease, transform 150ms ease, box-shadow 150ms ease',
-        // boxShadow: active ? `0 4px 8px ${theme.palette.primary.main}` : 'none', // Add subtle shadow on hover or active state
         borderRight: active ? `2px solid ${theme.palette.primary.main}` : 'none',
+
       }}
       onClick={onClick}
+
     >
       {icon && <Typography sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>{icon}</Typography>}
       <Typography variant="body1" sx={{
         fontWeight: active ? theme.typography.fontWeightMedium : theme.typography.fontWeightRegular,
         fontSize: theme.typography.fontSize,
-        ml: !icon ? 2 : 0
+        ml: !icon ? 2 : 0,
+        transition: theme.transitions.create('color', {
+          easing: theme.transitions.easing.easeInOut,
+          duration: theme.transitions.duration.short,
+        }),
       }}>
         {label}
       </Typography>
@@ -73,10 +78,16 @@ interface SubmenuProps {
   items: MenuItemType[];
   currentPath: string;
   depth?: number;
+  icon?: React.ReactNode;
 }
 
-const Submenu: React.FC<SubmenuProps> = ({ label, items, currentPath, depth = 0 }) => {
+const ExpandIcon = (open: boolean) => (
+  open ? <ExpandLessIcon /> : <ExpandMoreIcon />
+);
+
+const Submenu: React.FC<SubmenuProps> = ({ label, items, currentPath, depth = 0, icon }) => {
   const [open, setOpen] = useState(false);
+  const [hover, setHover] = useState(false); // Track hover state
   const location = useLocation();
 
   // Check if any child item is active to keep submenu expanded
@@ -96,15 +107,19 @@ const Submenu: React.FC<SubmenuProps> = ({ label, items, currentPath, depth = 0 
   // Check if this submenu contains the active path
   const isActive = items.some(item =>
     item.path === currentPath ||
-    (item.subItems?.some(subItem => subItem.path === currentPath)));
+    (item.subItems?.some(subItem => subItem.path === currentPath))
+  );
 
   return (
-    <Box>
+    <Box
+      onMouseEnter={() => setHover(true)}  // Set hover state to true when mouse enters
+      onMouseLeave={() => setHover(false)} // Set hover state to false when mouse leaves
+    >
       <MenuItem
         label={label}
         onClick={handleToggle}
         active={isActive}
-        icon={open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        icon={hover || isActive ? ExpandIcon(open) : icon} // Conditionally change icon on hover
         depth={depth}
       />
       <Collapse in={open} sx={{ transition: 'height 0.3s ease-in-out' }}>
@@ -117,6 +132,7 @@ const Submenu: React.FC<SubmenuProps> = ({ label, items, currentPath, depth = 0 
                   items={item.subItems}
                   currentPath={currentPath}
                   depth={depth + 1}
+                  icon={item.icon}
                 />
               ) : (
                 <MenuItem
@@ -152,6 +168,7 @@ const MenuItems: React.FC<MenuItemsProps> = ({ menuData }) => {
               label={item.label}
               items={item.subItems}
               currentPath={currentPath}
+              icon={item.icon}
             />
           ) : (
             <MenuItem
