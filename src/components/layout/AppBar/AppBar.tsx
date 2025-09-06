@@ -11,8 +11,7 @@ import {
   useTheme,
   Badge,
   Avatar,
-  Typography,
-  Divider
+  Typography
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -135,19 +134,15 @@ const ToggleButton = styled(IconButton)(({ theme }) => ({
 interface AppBarComponentProps {
   collapsed: boolean;
   isMobile: boolean;
-  open: boolean;
   onDrawerToggle: () => void;
   onToggleCollapse?: () => void;
-  getMainContentMarginLeft: () => number;
 }
 
 const AppBarComponent: React.FC<AppBarComponentProps> = ({
   collapsed,
   onDrawerToggle,
   onToggleCollapse,
-  isMobile,
-  open,
-  getMainContentMarginLeft
+  isMobile
 }) => {
   const theme = useTheme();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);

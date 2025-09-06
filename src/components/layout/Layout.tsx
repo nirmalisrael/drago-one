@@ -52,13 +52,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     setDrawerCollapsed(!drawerCollapsed);
   };
 
-  // Calculate main content margin based on drawer state
-  const getMainContentMarginLeft = (): number => {
-    if (isMobile) return 0;
-    if (!drawerOpen) return 0;
-    return drawerCollapsed ? COLLAPSED_DRAWER_WIDTH : DRAWER_WIDTH;
-  };
-
   // Calculate main content width
   const getMainContentWidth = (): string => {
     if (isMobile) return '100%';
@@ -85,10 +78,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <AppBarComponent
         collapsed={drawerCollapsed}
         isMobile={isMobile}
-        open={drawerOpen}
+        // open={drawerOpen}
         onDrawerToggle={handleDrawerToggle}
         onToggleCollapse={handleToggleCollapse}
-        getMainContentMarginLeft={getMainContentMarginLeft}
+      // getMainContentMarginLeft={getMainContentMarginLeft}
       />
 
       {/* Drawer */}
