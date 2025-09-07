@@ -158,7 +158,7 @@ const components = {
         borderRadius: LAYOUT_CONFIG.borderRadius.medium,
         textTransform: 'none' as const,
         fontWeight: 500,
-        padding: '8px 16px',
+        padding: '6px 14px',
         boxShadow: 'none',
         '&:hover': {
           boxShadow: LAYOUT_CONFIG.shadows.light,
@@ -177,11 +177,6 @@ const components = {
         background: `linear-gradient(135deg, 
           ${palette.background.paper} 0%, 
           ${alpha(palette.primary.main, 0.01)} 100%)`,
-        '&:hover': {
-          boxShadow: LAYOUT_CONFIG.shadows.medium,
-          transform: 'translateY(-2px)',
-        },
-        transition: 'all 0.3s ease-in-out',
       },
     },
   },

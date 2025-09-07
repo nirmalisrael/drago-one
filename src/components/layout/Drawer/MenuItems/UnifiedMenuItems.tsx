@@ -41,7 +41,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   const theme = useTheme();
 
   // Consistent sizing for both states
-  const itemHeight = 48;
+  const itemHeight = 40;
   const iconSize = 24;
   const paddingLeft = collapsed ? 12 : 8 + depth * 16;
 

@@ -65,8 +65,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Box
       sx={{
-        display: 'flex',
+        display: isMobile ? 'block' : 'flex',
         height: '100vh',
+        padding: 0,
         overflow: 'hidden',
         position: 'relative',
         background: `linear-gradient(135deg, 
@@ -116,7 +117,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           sx={{
             flex: 1,
             overflow: 'auto',
-            padding: theme.spacing(3),
+            padding: theme.spacing(1),
             position: 'relative',
             // Enhanced Background
             background: `linear-gradient(135deg, 

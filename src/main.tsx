@@ -1,18 +1,16 @@
+// main.tsx - Replace your current main.tsx with this
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css'; // Ensure this file exists and contains your global styles
-import App from './App'; // Import your App component without the extension
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import theme from './styles/theme'; // Import the theme from your styles folder
-import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter here
+import './index.css';
+import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import { AppThemeProvider } from './context/ThemeContext';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* This resets browser styles */}
-      <BrowserRouter> {/* Wrap the entire app with BrowserRouter */}
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
+    <AppThemeProvider> {/* Replace ThemeProvider with AppThemeProvider */}
+      {/* CssBaseline is now included in AppThemeProvider */}
+      <App />
+    </AppThemeProvider>
   </StrictMode>
 );

@@ -1,4 +1,4 @@
-// AppBarComponent.tsx - Enhanced Version with Drawer Controls
+// AppBarComponent.tsx - Enhanced Version with Dynamic Theme Support
 import React from 'react';
 import {
   AppBar,
@@ -14,8 +14,6 @@ import {
   Typography
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SearchIcon from '@mui/icons-material/Search';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -24,38 +22,30 @@ import { APP_BAR_DESKTOP_HEIGHT, APP_BAR_MOBILE_HEIGHT } from '@/constants/layou
 import LogoSection from '../Drawer/LogoSection';
 import MobileMenu from './MobileMenu';
 
-// Enhanced Search Component with Glassmorphism
+// Enhanced Search Component with better theme support
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  background: `linear-gradient(135deg, 
-    ${alpha(theme.palette.common.white, 0.15)} 0%, 
-    ${alpha(theme.palette.common.white, 0.10)} 100%)`,
-  backdropFilter: 'blur(10px)',
-  border: `1px solid ${alpha(theme.palette.common.white, 0.2)}`,
+  backgroundColor: alpha(theme.palette.background.paper, 0.15),
+  border: `1px solid ${alpha(theme.palette.primary.contrastText, 0.2)}`,
   '&:hover': {
-    background: `linear-gradient(135deg, 
-      ${alpha(theme.palette.common.white, 0.25)} 0%, 
-      ${alpha(theme.palette.common.white, 0.15)} 100%)`,
+    backgroundColor: alpha(theme.palette.background.paper, 0.25),
     transform: 'translateY(-1px)',
-    boxShadow: `0 4px 20px ${alpha(theme.palette.common.black, 0.1)}`,
+    boxShadow: `0 2px 8px ${alpha(theme.palette.common.black, 0.1)}`,
   },
   '&:focus-within': {
-    background: `linear-gradient(135deg, 
-      ${alpha(theme.palette.common.white, 0.3)} 0%, 
-      ${alpha(theme.palette.common.white, 0.2)} 100%)`,
-    transform: 'translateY(-1px)',
-    boxShadow: `0 4px 20px ${alpha(theme.palette.primary.main, 0.2)}`,
+    backgroundColor: alpha(theme.palette.background.paper, 0.3),
+    borderColor: alpha(theme.palette.primary.contrastText, 0.4),
   },
   marginRight: theme.spacing(2),
   marginLeft: theme.spacing(1),
   minWidth: '200px',
   maxWidth: '400px',
-  transition: theme.transitions.create(['background', 'transform', 'box-shadow'], {
+  transition: theme.transitions.create(['background-color', 'transform', 'box-shadow', 'border-color'], {
     duration: theme.transitions.duration.short,
   }),
   [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(2),
     width: 'auto',
   },
 }));
@@ -68,65 +58,59 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: alpha(theme.palette.common.white, 0.8),
+  color: alpha(theme.palette.primary.contrastText, 0.7),
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: theme.palette.common.white,
+  color: theme.palette.primary.contrastText,
   width: '100%',
   '& .MuiInputBase-input': {
-    padding: theme.spacing(1.2, 1.2, 1.2, 0),
+    padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
     fontSize: '0.875rem',
     fontWeight: 500,
     '&::placeholder': {
-      color: alpha(theme.palette.common.white, 0.7),
+      color: alpha(theme.palette.primary.contrastText, 0.6),
       opacity: 1,
     },
     [theme.breakpoints.up('md')]: {
-      width: '25ch',
+      width: '20ch',
       '&:focus': {
-        width: '30ch',
+        width: '25ch',
       },
     },
   },
 }));
 
-// Enhanced Action Button
+// Enhanced Action Button with better theme support
 const ActionButton = styled(IconButton)(({ theme }) => ({
-  width: 44,
-  height: 44,
-  backgroundColor: alpha(theme.palette.common.white, 0.1),
-  backdropFilter: 'blur(10px)',
-  border: `1px solid ${alpha(theme.palette.common.white, 0.15)}`,
-  color: theme.palette.common.white,
+  width: 40,
+  height: 40,
+  backgroundColor: alpha(theme.palette.primary.contrastText, 0.1),
+  color: theme.palette.primary.contrastText,
   margin: theme.spacing(0, 0.5),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.2),
-    transform: 'translateY(-2px) scale(1.05)',
-    boxShadow: `0 4px 12px ${alpha(theme.palette.common.black, 0.15)}`,
+    backgroundColor: alpha(theme.palette.primary.contrastText, 0.2),
+    transform: 'translateY(-1px)',
   },
-  transition: theme.transitions.create(['background-color', 'transform', 'box-shadow'], {
+  transition: theme.transitions.create(['background-color', 'transform'], {
     duration: theme.transitions.duration.short,
   }),
 }));
 
-// Special Toggle Button for Desktop Drawer
+// Toggle Button for Desktop Drawer
 const ToggleButton = styled(IconButton)(({ theme }) => ({
-  width: 44,
-  height: 44,
-  backgroundColor: alpha(theme.palette.common.white, 0.1),
-  backdropFilter: 'blur(10px)',
-  border: `1px solid ${alpha(theme.palette.common.white, 0.2)}`,
-  color: theme.palette.common.white,
+  width: 40,
+  height: 40,
+  backgroundColor: alpha(theme.palette.primary.contrastText, 0.1),
+  color: theme.palette.primary.contrastText,
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.2),
-    transform: 'scale(1.1)',
-    boxShadow: `0 4px 12px ${alpha(theme.palette.common.black, 0.3)}`,
+    backgroundColor: alpha(theme.palette.primary.contrastText, 0.2),
+    transform: 'scale(1.05)',
   },
-  transition: theme.transitions.create(['background-color', 'transform', 'box-shadow'], {
+  transition: theme.transitions.create(['background-color', 'transform'], {
     duration: theme.transitions.duration.short,
   }),
 }));
@@ -147,6 +131,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
   const theme = useTheme();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  console.log(collapsed);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const isMenuOpen = Boolean(anchorEl);
@@ -173,58 +158,37 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
       position="fixed"
       elevation={0}
       sx={{
-        // width: isMobile ? '100%' : `calc(100% - ${getMainContentMarginLeft()}px)`,
-        // ml: isMobile ? 0 : `${getMainContentMarginLeft()}px`,
         height: isMobile ? APP_BAR_MOBILE_HEIGHT : APP_BAR_DESKTOP_HEIGHT,
         zIndex: theme.zIndex.drawer + 1,
-        // Enhanced Glassmorphism Background
-        background: `linear-gradient(135deg, 
-          ${theme.palette.primary.main} 0%, 
-          ${theme.palette.primary.dark} 50%,
-          ${alpha(theme.palette.primary.main, 0.9)} 100%)`,
-        backdropFilter: 'blur(20px)',
+        // Use clean primary color background
+        backgroundColor: theme.palette.primary.main,
+        // Subtle shadow for depth
+        boxShadow: `0 2px 8px ${alpha(theme.palette.common.black, 0.1)}`,
+        // Border for definition
         borderBottom: `1px solid ${alpha(theme.palette.primary.contrastText, 0.1)}`,
         transition: theme.transitions.create(['width', 'margin-left'], {
           easing: theme.transitions.easing.easeInOut,
           duration: theme.transitions.duration.standard,
         }),
-        // Add subtle shadow
-        boxShadow: `0 2px 20px ${alpha(theme.palette.primary.main, 0.3)}`,
-        // Glass effect overlay
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: `linear-gradient(135deg, 
-            ${alpha('#ffffff', 0.1)} 0%, 
-            transparent 50%, 
-            ${alpha('#000000', 0.05)} 100%)`,
-          pointerEvents: 'none',
-        },
       }}
     >
       <Toolbar
         sx={{
           height: '100%',
           minHeight: 'auto !important',
-          px: { xs: 2, sm: 3 },
-          position: 'relative',
-          zIndex: 1,
+          px: { xs: 2, sm: 2 },
         }}
       >
         {/* Mobile Menu Button */}
         {isMobile && (
-          <ActionButton
+          <ToggleButton
             edge="start"
             aria-label="toggle drawer"
             onClick={onDrawerToggle}
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </ActionButton>
+          </ToggleButton>
         )}
 
         {/* Desktop Drawer Toggle Button */}
@@ -232,21 +196,18 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
           <ToggleButton
             onClick={onToggleCollapse}
             aria-label="toggle drawer"
-            sx={{
-              mr: 2,
-            }}
+            sx={{ mr: 2 }}
           >
-            {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            <MenuIcon />
           </ToggleButton>
         )}
 
-        {/* Logo Section */}
+
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
-            mr: 3,
-            opacity: 1,
+            mr: 2,
             transition: theme.transitions.create(['opacity'], {
               duration: theme.transitions.duration.standard,
               easing: theme.transitions.easing.easeInOut,
@@ -256,32 +217,20 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
           <LogoSection variant="appbar" />
         </Box>
 
-        {/* Divider between controls and search (desktop only) */}
+        {/* Spacer to push actions to the right */}
+        <Box sx={{ flexGrow: 1 }} />
+        {/* Search Bar - Only on Desktop */}
         {!isMobile && (
-          <Box
-            sx={{
-              height: 32,
-              width: 1,
-              backgroundColor: alpha(theme.palette.primary.contrastText, 0.2),
-              mr: 2,
-              borderRadius: 0.5,
-            }}
-          />
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search..."
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
         )}
-
-        {/* Search Bar */}
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search anything..."
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Search>
-
-        {/* Spacer */}
-        {/* <Box sx={{ flexGrow: 1 }} /> */}
 
         {/* Desktop Actions */}
         <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1 }}>
@@ -294,7 +243,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
                   backgroundColor: theme.palette.error.main,
                   color: theme.palette.error.contrastText,
                   fontWeight: 600,
-                  fontSize: '0.75rem',
+                  fontSize: '0.7rem',
                 }
               }}
             >
@@ -311,7 +260,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
                   backgroundColor: theme.palette.error.main,
                   color: theme.palette.error.contrastText,
                   fontWeight: 600,
-                  fontSize: '0.75rem',
+                  fontSize: '0.7rem',
                 }
               }}
             >
@@ -319,7 +268,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
             </Badge>
           </ActionButton>
 
-          {/* Profile Section - Enhanced */}
+          {/* Profile Section */}
           <Box
             onClick={handleProfileMenuOpen}
             sx={{
@@ -327,16 +276,14 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
               alignItems: 'center',
               gap: 1.5,
               padding: theme.spacing(0.5, 1.5),
-              borderRadius: 3,
-              backgroundColor: alpha(theme.palette.common.white, 0.1),
-              backdropFilter: 'blur(10px)',
-              border: `1px solid ${alpha(theme.palette.common.white, 0.15)}`,
+              borderRadius: 2,
+              backgroundColor: alpha(theme.palette.primary.contrastText, 0.1),
               cursor: 'pointer',
               transition: theme.transitions.create(['background-color', 'transform'], {
                 duration: theme.transitions.duration.short,
               }),
               '&:hover': {
-                backgroundColor: alpha(theme.palette.common.white, 0.2),
+                backgroundColor: alpha(theme.palette.primary.contrastText, 0.2),
                 transform: 'translateY(-1px)',
               },
             }}
@@ -356,7 +303,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
               <Typography
                 variant="body2"
                 sx={{
-                  color: theme.palette.common.white,
+                  color: theme.palette.primary.contrastText,
                   fontWeight: 600,
                   lineHeight: 1.2,
                 }}
@@ -366,7 +313,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
               <Typography
                 variant="caption"
                 sx={{
-                  color: alpha(theme.palette.common.white, 0.7),
+                  color: alpha(theme.palette.primary.contrastText, 0.7),
                   lineHeight: 1,
                 }}
               >
@@ -376,15 +323,39 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
           </Box>
         </Box>
 
-        {/* Mobile More Button */}
-        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+        {/* Mobile Actions */}
+        <Box sx={{
+          display: { xs: 'flex', md: 'none' },
+          alignItems: 'center',
+          gap: theme.spacing(1)
+        }}>
+          {/* Mobile Notifications */}
+          <ActionButton aria-label="show notifications">
+            <Badge
+              badgeContent={21}
+              color="error"
+              sx={{
+                '& .MuiBadge-badge': {
+                  backgroundColor: theme.palette.error.main,
+                  color: theme.palette.error.contrastText,
+                  fontWeight: theme.typography.fontWeightBold,
+                  fontSize: theme.typography.caption.fontSize,
+                  fontFamily: theme.typography.fontFamily,
+                }
+              }}
+            >
+              <NotificationsIcon fontSize="small" />
+            </Badge>
+          </ActionButton>
+
+          {/* Mobile More Button */}
           <ActionButton
             aria-label="show more"
             aria-controls="mobile-menu"
             aria-haspopup="true"
             onClick={handleMobileMenuOpen}
           >
-            <MoreIcon />
+            <MoreIcon fontSize="small" />
           </ActionButton>
         </Box>
       </Toolbar>

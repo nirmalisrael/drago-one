@@ -1,4 +1,4 @@
-// DrawerComponent.tsx - Menu Only Version with Enhanced Logo Support
+// DrawerComponent.tsx - WORKING SCROLLING VERSION
 import React from 'react';
 import { Drawer, Box, useTheme, alpha } from '@mui/material';
 import { DRAWER_WIDTH, COLLAPSED_DRAWER_WIDTH } from '@/constants/layout';
@@ -131,8 +131,8 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
         width: drawerWidth,
         flexShrink: 0,
         transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.easeInOut,
-          duration: theme.transitions.duration.standard,
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
         }),
         ...(isMobile && !open && {
           width: 0,
@@ -147,76 +147,94 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
         onClose={onClose}
         ModalProps={{
           keepMounted: true,
+          // THIS IS CRITICAL FOR SCROLLING
+          disableScrollLock: true,
         }}
         sx={{
           width: drawerWidth,
-          height: `calc(100vh - ${isMobile ? '56px' : '64px'})`,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
             ...glassmorphismBackground,
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden',
-            position: 'relative',
-            // Position drawer below AppBar
-            top: isMobile ? '56px' : '64px',
+            // CRITICAL: Use static positioning instead of fixed
+            position: 'static',
+            // Set proper height calculation
             height: `calc(100vh - ${isMobile ? '56px' : '64px'})`,
-            transition: theme.transitions.create('width', {
-              easing: theme.transitions.easing.easeInOut,
-              duration: theme.transitions.duration.standard,
-            }),
+            // Add top margin to account for AppBar
+            marginTop: isMobile ? '56px' : '64px',
+            // CRITICAL: Enable overflow for scrolling
+            overflow: 'visible',
             boxShadow: `4px 0 24px ${alpha(theme.palette.common.black, 0.12)}`,
             borderRight: 'none',
-            pt: 0,
-            mt: 0,
+            transition: theme.transitions.create('width', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
           },
         }}
       >
-        {/* Menu Items Container - Now takes full height */}
+        {/* SCROLLABLE CONTAINER - This is the key fix */}
         <Box
           sx={{
-            flex: 1,
             height: '100%',
+            // CRITICAL: This creates the scrollable area
             overflowY: 'auto',
             overflowX: 'hidden',
-            position: 'relative',
-            // Add top padding to account for AppBar
-            pt: 1,
+            // Enable momentum scrolling on iOS
+            WebkitOverflowScrolling: 'touch',
+            // Smooth scrolling behavior
+            scrollBehavior: 'smooth',
+            // Custom scrollbar
             '&::-webkit-scrollbar': {
               width: '6px',
             },
             '&::-webkit-scrollbar-track': {
-              background: alpha(theme.palette.divider, 0.1),
+              backgroundColor: alpha(theme.palette.divider, 0.05),
               borderRadius: '3px',
+              margin: '4px 0',
             },
             '&::-webkit-scrollbar-thumb': {
-              background: alpha(theme.palette.primary.main, 0.3),
+              backgroundColor: alpha(theme.palette.primary.main, 0.3),
               borderRadius: '3px',
               '&:hover': {
-                background: alpha(theme.palette.primary.main, 0.5),
+                backgroundColor: alpha(theme.palette.primary.main, 0.5),
               },
             },
+            // Firefox scrollbar
+            scrollbarWidth: 'thin',
+            scrollbarColor: `${alpha(theme.palette.primary.main, 0.3)} transparent`,
           }}
         >
-          <UnifiedMenuItems menuData={menuData} collapsed={collapsed && !isMobile} />
-        </Box>
+          {/* Menu Content with proper padding */}
+          <Box sx={{
+            py: 1,
+            // Add min-height to ensure content can scroll
+            minHeight: 'max-content',
+          }}>
+            <UnifiedMenuItems
+              menuData={menuData}
+              collapsed={collapsed && !isMobile}
+            />
+          </Box>
 
-        {/* Bottom Gradient Fade */}
-        <Box
-          sx={{
-            position: 'sticky',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: '20px',
-            background: `linear-gradient(to top, 
-              ${alpha(theme.palette.background.paper, 1)} 0%, 
-              transparent 100%)`,
-            pointerEvents: 'none',
-          }}
-        />
+          {/* Bottom fade effect */}
+          <Box
+            sx={{
+              position: 'sticky',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '16px',
+              background: `linear-gradient(to top, 
+                ${alpha(theme.palette.background.paper, 0.9)} 0%, 
+                transparent 100%)`,
+              pointerEvents: 'none',
+              zIndex: 1,
+              marginTop: '-16px', // Pull it up to overlay content
+            }}
+          />
+        </Box>
       </Drawer>
     </Box>
   );

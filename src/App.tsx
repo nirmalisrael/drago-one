@@ -1,19 +1,18 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom'; // Use Routes instead of Switch
-import Layout from './components/layout/Layout'; // Layout component for your app
-import PageNotFound from './components/common/pages/PageNotFound';
-import Home from './components/common/pages/Home';
+import { BrowserRouter } from 'react-router-dom';
+import { CssBaseline } from '@mui/material';
+// import { AuthProvider } from './context/AuthContext';
+import AppRoutes from './routes/AppRoutes';
+import ErrorBoundary from './components/common/ErrorBoundary';
 
 const App: React.FC = () => {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/dashboard" element={<Home />} />
-
-        {/* Catch-all route for undefined paths */}
-        <Route path="*" element={<PageNotFound />} /> {/* 404 Page */}
-      </Routes>
-    </Layout>
+    <BrowserRouter>
+      <CssBaseline />
+      <ErrorBoundary>
+        <AppRoutes />
+      </ErrorBoundary>
+    </BrowserRouter>
   );
 };
 

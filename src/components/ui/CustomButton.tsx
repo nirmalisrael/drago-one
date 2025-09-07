@@ -6,21 +6,23 @@ interface CustomButtonProps {
   isLoading?: boolean;
   customStyle?: React.CSSProperties;
   name?: string;
-  control?: React.Ref<any>;
+  control?: React.Ref<HTMLButtonElement>;
   disabled?: boolean;
+  type?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
   variant?: "text" | "contained" | "outlined"; // You can expand this as needed
   text?: string;
   tooltip?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button: React.FC<CustomButtonProps> = ({
+const CustomButton: React.FC<CustomButtonProps> = ({
   isLoading,
   disabled,
   customStyle,
   name,
   control,
   variant = "contained",  // Default to "contained" if no variant is passed
+  type = "primary",
   text,
   tooltip,
   onClick,
@@ -43,6 +45,20 @@ const Button: React.FC<CustomButtonProps> = ({
   ) : (
     text || "Submit" // Default button text if not provided
   );
+
+  if (type === 'primary') {
+    buttonProps.color = 'primary';
+  } else if (type === 'secondary') {
+    buttonProps.color = 'secondary';
+  } else if (type === 'success') {
+    buttonProps.color = 'success';
+  } else if (type === 'error') {
+    buttonProps.color = 'error';
+  } else if (type === 'warning') {
+    buttonProps.color = 'warning';
+  } else if (type === 'info') {
+    buttonProps.color = 'info';
+  }
 
   return tooltip ? (
     <Tooltip title={tooltip}>
@@ -75,4 +91,4 @@ const Button: React.FC<CustomButtonProps> = ({
   );
 };
 
-export default Button;
+export default CustomButton;
