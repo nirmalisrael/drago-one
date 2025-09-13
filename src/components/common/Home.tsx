@@ -1,114 +1,433 @@
 import CustomButton from '@/components/ui/CustomButton'
 import { MainCard } from '@/components/ui/cards/MainCard'
+import { useForm } from 'react-hook-form';
+import { TextInput } from '../ui';
+import { Grid } from '@mui/material';
+import NumberInput from '../ui/inputs/NumberInput/NumberInput';
 
 const Home = () => {
+
+  const { control, handleSubmit, formState: { isSubmitting } } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: 'Disable Eg',
+      bio: '',
+      phoneWithCode: '',
+      phoneAlt: '',
+      phoneSimple: '',
+      aadhaar: '',
+      cardNumber: '',
+      pinCode: '',
+      otp: '',
+      bankAccount: '',
+      employeeId: '',
+      amount: '',
+      age: '',
+      usPhone: '',
+      customField: '',
+    }
+  });
+
   return (
     <MainCard title="Home" action={
       <>
-        <CustomButton text="Import" type="secondary" />
-        <CustomButton text="Add" type='secondary' />
+        <CustomButton text="Import" type="add" />
+        <CustomButton text="Add" type='add' />
       </>
     }>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio, deleniti. Id facere quaerat quae incidunt. Fugiat aspernatur doloribus doloremque, ut autem facilis corporis eaque vero tempora officiis ducimus quod amet.
-      Voluptatum soluta impedit quisquam rem aspernatur, ipsa deserunt sed sunt atque distinctio earum vel nobis, temporibus, delectus iste? Sunt incidunt, delectus sint dolorum quis dolores doloremque fuga sed assumenda iusto?
-      Commodi, exercitationem. Excepturi accusantium aut dolor neque error sequi quia maiores ipsam, asperiores dolorum quod maxime aliquam iure quam iste rem aperiam officia odio ratione modi sit consequuntur beatae nulla!
-      Fuga natus tenetur, totam hic optio alias ad accusantium in quod eaque, tempore ut nostrum veniam vel assumenda! Delectus, laborum cupiditate. Expedita, illum veniam. Quasi ad optio numquam tempore incidunt!
-      Fugit architecto nulla velit ab cum consectetur earum sit eligendi veritatis doloribus. Harum itaque, iure incidunt quo ratione corrupti exercitationem nostrum repellat dolorum aliquid, doloremque necessitatibus? Voluptate quia porro maxime!
-      Consectetur in quas, consequatur voluptate soluta nam beatae autem quasi placeat voluptates debitis, sunt quos aliquam iste dolorum, excepturi esse dolores dolore praesentium perferendis aliquid. Aliquam neque sit dignissimos inventore.
-      Iusto atque repellendus delectus harum omnis ab molestias optio vero explicabo dolorem accusamus, ratione animi porro. Nostrum error temporibus cum id, eos quas alias voluptas laborum voluptatum enim dolore impedit.
-      Atque provident explicabo debitis aperiam voluptate dignissimos unde omnis optio, rem, deserunt quod. Tempora rem voluptatem, consectetur numquam illum corrupti fugiat laudantium nisi provident. Vel in voluptate itaque corrupti dignissimos.
-      Doloremque quaerat voluptates, laboriosam, corrupti iste velit quibusdam facilis labore, nostrum eos nihil maiores porro. Commodi, pariatur blanditiis! Eius atque praesentium suscipit dolor maiores vero minus aut magni, et soluta?
-      Sunt, et. Aliquid culpa eius blanditiis sit repellendus iure sequi magnam pariatur hic maiores. Aliquid inventore eligendi ducimus dolore, recusandae quo quidem expedita impedit perspiciatis exercitationem repudiandae neque accusamus voluptates.
-      Sint laboriosam reprehenderit suscipit possimus, earum enim voluptatem laborum, perspiciatis, assumenda iusto deleniti! Incidunt autem dolores aliquam alias sunt expedita provident, quia, at ut ducimus excepturi dicta consequatur reiciendis dignissimos!
-      Pariatur vitae blanditiis illum veniam earum voluptatibus libero officia, totam molestias eveniet sequi ullam non, nemo debitis provident molestiae! Officia veritatis architecto ut dolorum modi quibusdam, labore eum explicabo deserunt?
-      Nesciunt expedita unde ea eos ipsa dignissimos incidunt eaque, rem aliquid, a velit consequuntur dolores ipsum. Consequuntur laboriosam rerum nobis voluptas nihil modi porro ea incidunt totam blanditiis, ipsum perferendis.
-      Veniam ipsam dolorem voluptatem, cupiditate magni quod laboriosam delectus nisi vero obcaecati totam quia aperiam voluptatibus fugit mollitia neque. Ab excepturi adipisci ducimus cum fugiat corrupti nesciunt praesentium sapiente unde.
-      Illo hic ad nemo! Quo, totam numquam. Aut numquam alias magnam voluptatum sequi nisi, aliquam voluptatibus. Sapiente molestias nobis sint ab consectetur blanditiis explicabo repellat porro non in, pariatur illo?
-      Magni eius animi quis facere! Quos, voluptatem. Odio sequi soluta voluptatum nisi accusamus? Vero, modi error, earum enim obcaecati sint cumque, placeat dolore blanditiis asperiores quas officiis exercitationem adipisci fugiat!
-      Eius exercitationem dicta veritatis eaque, iusto vero, quidem ex, voluptatem amet corrupti iste omnis repudiandae ipsa ipsum ullam molestiae distinctio reprehenderit nemo perferendis voluptatum est? Itaque impedit consectetur molestias numquam.
-      Laborum ducimus atque consequuntur illum veniam vitae voluptate quo temporibus quas sequi. Officia, placeat quibusdam ab neque quam commodi velit, modi architecto provident, debitis at mollitia dolore eos aliquid natus?
-      Iste, illum quod! Architecto quasi vitae molestias repudiandae quisquam! Pariatur veritatis tenetur soluta necessitatibus, accusamus dolore maiores commodi unde temporibus, odio velit, saepe voluptatem nemo. Error, temporibus expedita. Temporibus, est.
-      Autem minima quas officia ad dolores, odio magnam reiciendis harum consequatur asperiores corporis veritatis incidunt sed maiores vero modi tempore. Expedita ipsum odio hic ab fugit earum architecto dolorum! Iure.
-      In quam, magnam enim repellendus porro sunt eum voluptatum ad illum architecto eveniet expedita iusto fugiat numquam est itaque possimus rerum? Vitae totam minus magnam commodi quae ipsa. Labore, rerum?
-      Reprehenderit distinctio earum ex sequi ad expedita repudiandae quibusdam impedit repellendus. Debitis deserunt perspiciatis totam incidunt iusto consequatur, dignissimos hic, alias eaque earum laboriosam nemo praesentium sint accusamus iste autem?
-      Aliquam quod sapiente nobis quis dolorem eligendi cumque! Ipsam eveniet laudantium dolore eius mollitia facilis ratione distinctio, error veniam vero tempora eos quod eligendi doloremque vel ipsa odit fugiat deserunt!
-      A inventore autem laudantium, provident praesentium quos quam dolor deleniti dolore itaque magni recusandae temporibus. Iste incidunt, autem repudiandae sequi magnam ab culpa ullam impedit, eum voluptatum soluta voluptatibus rerum.
-      Dolorem nulla facilis modi alias consectetur, consequatur velit unde. Obcaecati nostrum architecto, in suscipit quod deleniti explicabo officiis delectus ad id dolore. Aut tempore perferendis sint, nobis laborum molestiae fuga?
-      Enim fugiat placeat, minus aspernatur totam id magni sequi tenetur officia doloribus temporibus officiis ipsam! Quo deleniti impedit voluptate. At commodi aspernatur necessitatibus provident, iusto debitis. At ipsam blanditiis explicabo.
-      Cum, quisquam omnis. Tenetur obcaecati dignissimos nemo incidunt officia, hic voluptate laudantium voluptas dolores libero rerum soluta, aperiam odio. Mollitia architecto consectetur quasi? Veritatis praesentium sed assumenda architecto itaque? Maxime!
-      Repellat soluta iure voluptate expedita, nostrum deserunt vitae consectetur officiis corporis pariatur dicta, adipisci rem deleniti recusandae sapiente magni hic ipsam a assumenda fuga debitis suscipit? Harum non voluptatum ratione?
-      Porro nam reprehenderit harum vitae, perferendis temporibus quas et veritatis dolore a tenetur suscipit beatae, quo alias. Impedit recusandae facilis beatae ipsam asperiores corporis, ipsum labore dignissimos repellendus. Praesentium, tempora.
-      Est fugiat mollitia doloribus enim, perferendis exercitationem itaque veniam delectus totam assumenda, rerum numquam quo magnam aliquam debitis perspiciatis neque, incidunt quaerat quis. Similique, facilis assumenda cumque earum quae illum!
-      Eligendi corrupti deleniti iusto impedit, suscipit pariatur fuga atque voluptas possimus mollitia ullam dolorem exercitationem, natus sapiente quia molestias perspiciatis beatae aut cum omnis tenetur saepe? Similique mollitia deserunt odio?
-      Sed dicta sunt molestias nihil, nesciunt pariatur itaque, minus, velit eveniet beatae alias iste? Eius laudantium dolor autem harum tempore dolorem ipsa error? Accusantium nesciunt voluptatibus debitis ipsum veritatis delectus.
-      Tenetur quo eos dolore natus delectus a molestias tempore, maxime perferendis. Aperiam iure doloribus earum nobis expedita quia, reiciendis sit alias molestias a dolorum vitae repudiandae, consequatur temporibus, iusto dolore!
-      Amet ratione sint facere tempora voluptatum reprehenderit cum ut quas, doloremque maiores delectus accusamus maxime provident mollitia beatae deleniti, dignissimos odit repellendus eligendi ab corrupti fuga, consectetur nesciunt? Quaerat, vitae.
-      Voluptatibus nesciunt cupiditate, maiores aliquid perferendis qui hic corporis ducimus quod ex aliquam assumenda laboriosam cum excepturi possimus inventore vitae debitis! Dolor ex unde ad laborum, quo quae deleniti omnis.
-      Quae perferendis distinctio consectetur sunt quidem, sit ad voluptas? Illum est fugiat tempore, nobis mollitia unde quisquam ea nostrum blanditiis tempora doloribus voluptatum molestiae cum soluta eos, ullam facere quasi.
-      Quia sapiente sint error eaque porro illum consequuntur nostrum quos fuga aspernatur corrupti sed laboriosam obcaecati, adipisci dolorum neque, pariatur voluptate asperiores officiis? Aut asperiores modi architecto magnam? Ut, modi.
-      Tempora delectus omnis beatae at consequuntur alias, repudiandae dolor provident, vel similique excepturi aspernatur iusto sit unde et! Consequuntur quibusdam laborum aut facilis reiciendis incidunt quasi quis ab quisquam possimus.
-      Maxime magnam officiis ab cumque porro dolores amet esse eligendi? Laudantium possimus, eveniet amet perspiciatis, ut similique velit in ducimus facere consectetur quis sint et dolores error ab ex nostrum!
-      Nam non consequatur, nulla aliquid natus esse explicabo perspiciatis nisi quas debitis odit rem voluptas ex qui, molestiae sint? Corporis inventore earum, non asperiores provident nihil incidunt distinctio et excepturi.
-      Molestiae tempora voluptate corrupti placeat recusandae quae rerum odio magni. Numquam soluta error amet doloremque rerum laudantium eveniet, atque deserunt ipsa cupiditate, doloribus dolore, eligendi provident minima ducimus unde laboriosam?
-      Repellat corrupti aperiam ab dolores laudantium dignissimos ex similique libero vitae placeat aspernatur tenetur repellendus quod est quia dolorum consequuntur, nihil deserunt earum numquam dolor voluptate necessitatibus officia ea? Est!
-      Sunt, a? Cum facilis sapiente distinctio aut dolore voluptas deserunt sed earum. Aperiam velit maxime accusamus eligendi consequuntur! Odit nemo quas accusamus magni? Ducimus laborum unde doloribus ratione, ipsum accusamus.
-      Asperiores repellat quae exercitationem, explicabo inventore commodi veritatis maiores earum soluta dolorum vel quaerat, odit, nihil atque dolores. Quae magni aspernatur ipsa beatae magnam quibusdam ducimus iure officia sed laudantium.
-      Earum reprehenderit ducimus in deleniti totam voluptatem fugiat praesentium consequuntur repellat dolores, neque aliquam dolore ipsum eum placeat saepe ipsa recusandae consequatur eius perferendis? Quibusdam ratione natus nobis nesciunt laudantium?
-      Consectetur libero autem quia odit iure optio recusandae! Ea atque mollitia nobis dolore libero optio quis magni voluptas! Incidunt porro fugiat vero aliquam laudantium voluptatem maiores repellat architecto itaque illo.
-      Corporis soluta eos quo dignissimos, minus dicta eligendi error exercitationem nam quasi voluptatum nulla repellendus totam et. Dolorem omnis tempore delectus alias aliquid consequuntur numquam. Nobis perspiciatis neque temporibus iusto.
-      Non, vero architecto? Eveniet quis quibusdam obcaecati atque eum deleniti tempore praesentium mollitia, placeat, dicta labore rem nesciunt. Saepe blanditiis quisquam, praesentium a sint atque nobis incidunt error impedit ex?
-      Aliquam repudiandae et nihil laborum. Aspernatur sit ducimus, amet nihil porro recusandae rem ex exercitationem consectetur modi id blanditiis culpa quibusdam laboriosam molestias! Natus corrupti eos optio placeat dicta officia.
-      Facere excepturi libero fugit magnam itaque doloribus voluptatum reprehenderit incidunt nulla. Voluptas ducimus nobis atque pariatur earum reprehenderit necessitatibus. Minus expedita eos rem qui tempore. Repudiandae earum officiis tempore quam.
-      Ratione non optio amet quasi consectetur, quia officiis. Deserunt repudiandae accusamus dicta facere ducimus non corrupti ratione provident odio? Nesciunt consectetur sunt fuga nam reprehenderit, beatae architecto libero accusantium praesentium?
-      Neque pariatur aperiam illo sunt eum fugit assumenda dicta veniam minus ratione ducimus, temporibus quam corrupti quis officia quas esse nulla! Eius reprehenderit quos iusto atque pariatur maxime laboriosam illo.
-      Minus, natus vel deserunt inventore nisi nobis. A voluptas vel quod minima at laboriosam enim veniam debitis non. Aut ad accusamus ipsam fuga sapiente, qui dicta perspiciatis aliquid cupiditate repudiandae.
-      Quia ducimus, velit quas consequatur quod architecto aliquam numquam, omnis error reiciendis inventore eos? Totam maiores numquam nobis, quaerat necessitatibus itaque inventore ad. Optio nulla a consequatur accusamus voluptatibus. Id.
-      Provident illo consequuntur obcaecati dignissimos optio vel quaerat, esse facilis perspiciatis omnis, eos minima. Vitae accusantium ratione est repellat aperiam unde. Dolores perferendis quam dolorem enim blanditiis praesentium laboriosam voluptate!
-      At nihil assumenda ab itaque quisquam ratione cupiditate hic, vero similique nam pariatur eum natus ipsum tempore reprehenderit eveniet consequuntur, perferendis quidem qui. Sit repellat labore quibusdam porro id esse?
-      In corporis amet id ad odio repellat alias animi est. Sunt porro dolor aliquam, praesentium sed dolorem nesciunt? Maiores non sit debitis corporis? Maxime ex recusandae cum, expedita sequi repellendus.
-      Ducimus quos maiores iusto cum eius hic sequi nihil ea labore expedita aspernatur recusandae autem impedit accusantium excepturi inventore voluptate sapiente necessitatibus quo, culpa qui laboriosam ipsa. Exercitationem, odio. Odio.
-      Sunt magnam placeat illum ad modi sint consequatur adipisci ut qui quisquam? Ratione nemo laudantium voluptates nisi sint amet mollitia aperiam, voluptatum, optio, magni beatae labore nihil omnis facere odio!
-      Ad magni quae dolore consequuntur necessitatibus eveniet dignissimos quis ullam voluptatum pariatur eligendi accusamus ipsam, placeat neque eaque odit libero nam suscipit officiis doloribus reprehenderit, iure eos totam! Debitis, velit.
-      Vero eius nobis laborum distinctio voluptate excepturi eaque enim neque ea assumenda sit adipisci labore consectetur obcaecati ullam sed rem autem harum qui repellendus sunt, iure nemo ducimus saepe. Quo?
-      Inventore neque ipsam sunt saepe repudiandae quasi facilis molestiae ratione odit eius alias tenetur fugit ab, aspernatur labore? Consectetur, nemo sunt rem molestias nesciunt numquam beatae totam ullam distinctio odit.
-      Voluptatibus corporis labore illo veniam culpa placeat praesentium minus quis tempore ipsum porro magni ipsa est, laboriosam, quia consectetur expedita reprehenderit possimus in molestias. Eum quas maxime distinctio. Ipsum, consequatur!
-      Possimus tempore labore iure sit earum itaque, sequi omnis similique reprehenderit ullam eum, quia, nesciunt odio voluptatibus velit rerum dignissimos dolore autem nemo. Voluptas maxime voluptatum natus quam veritatis reprehenderit!
-      Repudiandae recusandae neque, architecto libero perferendis optio ut labore molestiae, numquam veniam error eveniet est inventore accusamus. Error temporibus distinctio nihil neque cumque, rerum possimus molestiae reprehenderit quaerat eum. Iure.
-      At tempore fugiat, neque perspiciatis sint distinctio ducimus porro tenetur perferendis non quod nulla cumque sit. Officia id impedit voluptatibus voluptates reiciendis in ratione et? Saepe laborum accusantium facilis cupiditate?
-      Minus, iure hic est repellat quos asperiores accusantium aliquid, magni ab recusandae repellendus adipisci consequuntur laboriosam molestiae dolorem? Eius maiores ut quo quibusdam aspernatur aliquid quis aut incidunt aperiam numquam.
-      Perspiciatis earum omnis ullam, ea deleniti maiores aut, ipsam placeat ab facilis reprehenderit eos. Hic, molestias? Deserunt debitis excepturi quasi. Molestias esse laborum asperiores amet provident ducimus veniam rerum architecto?
-      Praesentium dicta fugit, quis laudantium beatae debitis, corporis velit aliquam placeat animi mollitia soluta nihil reprehenderit quam illum sed asperiores cum tempore rem ut culpa autem! Commodi eligendi error placeat.
-      Incidunt rem doloribus nulla adipisci accusamus qui perspiciatis numquam dolores reprehenderit odit! Nulla eveniet harum enim cum natus aspernatur laudantium reiciendis, incidunt ea suscipit, rem consectetur soluta earum vitae velit.
-      Quo dolore beatae numquam. Odit rem totam praesentium porro voluptate ipsum quos minima expedita ab accusantium dolore inventore aspernatur, est, amet ad doloribus ea ratione numquam incidunt atque sunt corrupti.
-      Officia consequuntur nobis incidunt doloribus fugiat deserunt cum? Numquam, culpa enim reiciendis accusamus voluptas facilis maxime voluptatem eligendi iusto, quo nostrum quaerat quod sint veniam incidunt soluta, officiis magni veritatis!
-      Reprehenderit, alias optio consequuntur cum ratione, commodi reiciendis ducimus ut quisquam ipsam suscipit eum libero quia consectetur, eligendi amet ipsum sed vero quis eaque magni temporibus doloribus expedita. Quasi, voluptatibus.
-      Praesentium cumque eligendi quos tempora rem necessitatibus facere asperiores cupiditate quod placeat fuga corporis, tempore velit consequatur iure animi autem. Ex esse amet rem ut quia neque natus autem alias.
-      Quam praesentium harum cum qui, iste dolorem fugit, beatae consequuntur corporis reiciendis ullam nesciunt asperiores quis enim, laborum quae? Quam, eum commodi! Expedita, officiis ad aliquid voluptatem esse quam dignissimos!
-      Iure ad voluptatem veritatis fugiat iste. Tenetur quo mollitia, voluptates quod velit aspernatur quaerat sit deserunt iusto non officia ad necessitatibus nostrum earum quos impedit dicta! Impedit rerum quam ratione!
-      Quasi sequi placeat iusto laudantium ullam? Ipsum sint harum impedit pariatur similique corporis, voluptatibus provident quod consequuntur reprehenderit vel fugit a earum eos distinctio quo quibusdam labore ducimus debitis dolore.
-      Unde magnam quas blanditiis non dolor, tempore ex rerum expedita quod eaque esse culpa porro ut cum incidunt! Dolor, laudantium veniam perferendis fugiat officiis error aliquid suscipit expedita nisi nobis?
-      Explicabo culpa, maxime voluptatibus excepturi ullam reiciendis. Harum, distinctio, ullam vero provident dolorem doloremque reprehenderit ducimus sed, tempore quo aperiam consequuntur voluptate repellat. Ut error ad corporis temporibus ducimus quas?
-      Facilis, quaerat pariatur. Tempore velit, adipisci molestias recusandae dolor provident facilis eveniet necessitatibus sed mollitia harum eligendi earum excepturi. Saepe eaque, recusandae asperiores fugiat a veritatis id quibusdam in tempora.
-      At accusamus, tempora officia eveniet possimus omnis totam labore fugiat est reiciendis reprehenderit repellendus a illo tempore, excepturi praesentium ipsa nisi? Consequuntur voluptate magnam nostrum accusantium facere omnis quidem temporibus?
-      Provident molestias quod earum quia numquam laboriosam aliquam. Totam facilis tempore sunt nulla vel deserunt recusandae commodi? Nemo recusandae, quo cupiditate at voluptate sequi pariatur iusto soluta tempora praesentium quae.
-      Fugit exercitationem dicta quam porro quae sequi perferendis dignissimos quas. Est iure ipsum nostrum nisi unde distinctio facilis pariatur, dolores fuga vel illum ducimus consequuntur laboriosam optio, cumque eius laborum?
-      Accusamus modi similique voluptate nemo provident. Recusandae atque cupiditate, dolorem magnam ratione voluptate dolores, neque, nostrum assumenda eveniet omnis velit. Molestias id porro rem eum facere dolores esse voluptate sint!
-      Dolores quam laborum dolore delectus eum. Dolore nisi repellat nihil, voluptate unde quisquam architecto consequatur atque totam eum? Magnam ut vero non velit tempora eligendi ullam nihil facilis dolores in!
-      Iste ipsam cumque delectus ad molestiae, dolorem rem accusantium nisi saepe accusamus eos praesentium labore nesciunt debitis porro incidunt ipsum illo exercitationem? Labore aliquam repudiandae sunt sed explicabo nobis dolorum?
-      Dolore placeat, asperiores deleniti esse ad cum accusamus id vero nisi quia magnam ea tempore, eos eligendi mollitia vitae natus impedit debitis quam quis, repellat accusantium amet odio. Distinctio, quis.
-      Esse, adipisci consequuntur nostrum non enim ab odio, officiis quos, blanditiis facere iure tempora pariatur minima? Repudiandae temporibus alias ad obcaecati a! Itaque ex adipisci, ipsam quam dicta quisquam temporibus.
-      Tenetur delectus at sapiente quisquam libero magnam et, quos architecto obcaecati nobis ut quasi veritatis asperiores quis atque beatae ratione aliquid dolore dignissimos molestiae enim? Repellat quibusdam architecto blanditiis laudantium!
-      Similique quasi sunt fugiat ea. Quaerat illo sunt quis modi, dicta, fugiat repellat iure nisi maxime mollitia eveniet nihil aliquid maiores voluptatum sequi necessitatibus odit iusto impedit culpa libero repellendus.
-      Recusandae natus fuga atque. Harum corrupti eos facere ipsum totam quos rerum illum. At commodi corrupti laboriosam vel modi optio nisi hic nesciunt consequatur, temporibus, unde ipsa suscipit voluptatum. Porro.
-      Vitae repellat officia, iste necessitatibus velit facilis cupiditate delectus amet saepe recusandae ipsam, ullam dolorem perspiciatis modi voluptate pariatur veritatis. Dicta ipsam modi at inventore autem minus ipsum! Tempora, ipsam.
-      Possimus dolorum sunt totam optio commodi at placeat dignissimos? Culpa tempore mollitia in obcaecati, doloribus nemo saepe harum impedit repudiandae, laudantium odit. Eveniet consequuntur reprehenderit voluptate molestiae ea nesciunt soluta.
-      Qui aut harum eligendi sunt illo in veritatis. Incidunt rerum sapiente, libero corporis expedita sit odit ex numquam aliquid, voluptates maxime a, cupiditate obcaecati ipsum aspernatur dolores unde hic? Sint.
-      Dignissimos voluptas accusantium similique! Debitis natus, veniam aliquam voluptate ipsa exercitationem aliquid facilis perspiciatis quia placeat molestias pariatur provident cum obcaecati eius doloremque, quidem nemo unde. Illo officiis deleniti necessitatibus.
-      Illum obcaecati, nulla odio officia nam minima error quae accusamus repudiandae facilis! Cumque optio cum corrupti debitis eos cupiditate, facere, odit ipsam perspiciatis non magni ut voluptate? Cum, at sapiente.
-      Cumque ratione earum fuga nemo optio soluta, atque recusandae architecto libero a, aspernatur, quo nisi sint totam? Quas, magni minima earum impedit aliquam cum ipsum assumenda laboriosam labore maxime ducimus.
-      Ducimus doloribus ipsam reprehenderit atque aspernatur necessitatibus quasi aperiam veniam laboriosam enim praesentium repellat incidunt eveniet cumque tenetur dolores facere adipisci modi rerum quia quam, saepe est labore. Assumenda, praesentium!
-      At itaque nulla iusto voluptatem perspiciatis odit totam quod aspernatur ad expedita odio debitis reiciendis facilis veniam in ab, eveniet quaerat. Cupiditate ullam quam et reprehenderit. Error unde sint laborum!
-      Ipsum praesentium reiciendis corporis magni natus, dolores tempore libero dolor accusamus, ut quasi cupiditate alias explicabo architecto nisi accusantium molestias illum ducimus iste. Excepturi, magni? Voluptatibus ipsum molestiae natus optio.
+      <h2>Sample Form Controls</h2>
+
+      <form onSubmit={handleSubmit((data) => console.log(data))}>
+        <Grid container spacing={2}>
+          {/* Text Input Fields */}
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <TextInput
+              control={control}
+              name="email"
+              label="Email"
+              type="email"
+              autoFocus
+              required
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <TextInput
+              control={control}
+              name="password"
+              label="Password"
+              type="password"
+              required
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <TextInput
+              control={control}
+              name="firstName"
+              label="First Name"
+              required
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <TextInput
+              control={control}
+              name="lastName"
+              label="Last Name"
+              required
+              disabled
+            />
+          </Grid>
+
+          {/* Number Input Fields - Phone Numbers */}
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="phoneWithCode"
+              control={control}
+              label="Indian Phone Number"
+              format="PHONE_IN"
+              showCountryCode={true}
+              countryCode="IN"
+              required
+              helperText="Enter your 10-digit mobile number"
+              showCharacterCount={true}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="phoneAlt"
+              control={control}
+              label="Phone (Alternative)"
+              format="PHONE_IN_WITH_CODE"
+              placeholder="91 123 456 7890"
+              maxLength={10}
+              required
+              showCharacterCount={true}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="phoneSimple"
+              control={control}
+              label="Phone Simple"
+              format="PHONE_BASIC"
+              maxLength={10}
+              required
+              helperText="10-digit phone number without formatting"
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="usPhone"
+              control={control}
+              label="US Phone"
+              format="PHONE_US"
+              showCountryCode={true}
+              countryCode="US"
+              allowCountryCodeChange={true}
+              helperText="US phone number with country code"
+            />
+          </Grid>
+
+          {/* Identity Numbers */}
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="aadhaar"
+              control={control}
+              label="Aadhaar Number"
+              format="AADHAAR"
+              required
+              mask={true}
+              helperText="Enter your 12-digit Aadhaar number"
+              showCharacterCount={true}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="ssn"
+              control={control}
+              label="Social Security Number"
+              format="SSN"
+              mask={true}
+              helperText="US Social Security Number (9 digits)"
+              showCharacterCount={true}
+            />
+          </Grid>
+
+          {/* Payment Information */}
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="cardNumber"
+              control={control}
+              label="Credit Card Number"
+              format="CARD"
+              maxLength={16}
+              required
+              helperText="16-digit card number"
+              showCharacterCount={true}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="cvv"
+              control={control}
+              label="CVV"
+              format="CVV"
+              maxLength={3}
+              required
+              mask={true}
+              helperText="3-digit security code"
+              size="small"
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="amount"
+              control={control}
+              label="Amount"
+              allowDecimal={true}
+              decimalPlaces={2}
+              min={0}
+              max={999999}
+              startAdornment="₹"
+              helperText="Enter amount in rupees"
+              inputMode="decimal"
+            />
+          </Grid>
+
+          {/* Security Codes */}
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="pinCode"
+              control={control}
+              label="PIN Code"
+              format="PIN"
+              maxLength={6}
+              required
+              mask={true}
+              helperText="6-digit PIN code"
+              size="small"
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="otp"
+              control={control}
+              label="4-Digit OTP"
+              format="OTP_4"
+              maxLength={4}
+              required
+              helperText="Enter 4-digit OTP"
+              size="small"
+              showCharacterCount={true}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="otp6"
+              control={control}
+              label="6-Digit OTP"
+              format="OTP_6"
+              maxLength={6}
+              required
+              helperText="Enter 6-digit OTP"
+              size="small"
+              showCharacterCount={true}
+            />
+          </Grid>
+
+          {/* Banking Information */}
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="bankAccount"
+              control={control}
+              label="Bank Account Number"
+              format="ACCOUNT"
+              maxLength={12}
+              required
+              helperText="12-digit account number"
+              showCharacterCount={true}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="routingNumber"
+              control={control}
+              label="Routing Number"
+              format="ROUTING"
+              maxLength={9}
+              helperText="9-digit routing number"
+              showCharacterCount={true}
+            />
+          </Grid>
+
+          {/* Custom Formats */}
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="employeeId"
+              control={control}
+              label="Employee ID"
+              format="EMP####"
+              maxLength={7}
+              helperText="Employee ID format: EMP1234"
+              customRules={{
+                validate: {
+                  custom: (value: string) => {
+                    const cleanVal = value.replace(/\D/g, '');
+                    return cleanVal.length === 4 || 'Employee ID must be 4 digits';
+                  }
+                }
+              }}
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="customField"
+              control={control}
+              label="Custom Pattern"
+              format="##-##-##"
+              maxLength={6}
+              helperText="Custom format: 12-34-56"
+              showCharacterCount={true}
+              customRules={{
+                validate: {
+                  custom: (value: string) => {
+                    const cleanVal = value.replace(/\D/g, '');
+                    return cleanVal !== '123456' || 'This number is not allowed';
+                  }
+                }
+              }}
+              onValueChange={(cleanValue, formattedValue, rawValue) => {
+                console.log('Clean:', cleanValue, 'Formatted:', formattedValue, 'Raw:', rawValue);
+              }}
+            />
+          </Grid>
+
+          {/* Simple Number Fields */}
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="age"
+              control={control}
+              label="Age"
+              min={18}
+              max={120}
+              maxLength={3}
+              required
+              helperText="Age between 18-120"
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="quantity"
+              control={control}
+              label="Quantity"
+              min={1}
+              max={1000}
+              maxLength={4}
+              helperText="Enter quantity (1-1000)"
+              size="small"
+            />
+          </Grid>
+
+          {/* Decimal Examples */}
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="price"
+              control={control}
+              label="Price"
+              allowDecimal={true}
+              allowNegative={true}
+              decimalPlaces={2}
+              min={-9999}
+              max={9999}
+              startAdornment="$"
+              helperText="Price with 2 decimal places"
+              inputMode="decimal"
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="percentage"
+              control={control}
+              label="Percentage"
+              allowDecimal={true}
+              decimalPlaces={1}
+              min={0}
+              max={100}
+              endAdornment="%"
+              helperText="Percentage (0-100%)"
+              inputMode="decimal"
+            />
+          </Grid>
+
+          {/* Advanced Examples */}
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="advancedPhone"
+              control={control}
+              label="International Phone"
+              format="PHONE_US"
+              showCountryCode={true}
+              countryCode="US"
+              allowCountryCodeChange={true}
+              helperText="Select country and enter phone"
+              showCharacterCount={true}
+              variant="filled"
+            />
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <NumberInput
+              name="maskedSSN"
+              control={control}
+              label="Masked SSN"
+              format="SSN"
+              mask={true}
+              required
+              helperText="SSN with masking toggle"
+              showCharacterCount={true}
+              variant="standard"
+            />
+          </Grid>
+
+          {/* Action Buttons */}
+          <Grid size={{ xs: 12 }}>
+            <Grid container spacing={2} sx={{ mt: 2 }}>
+              <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <CustomButton
+                  text="Submit"
+                  type="submit"
+                  isLoading={isSubmitting}
+                  fullWidth
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                <CustomButton
+                  text="Cancel"
+                  type="back"
+                  fullWidth
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+
+        </Grid>
+      </form>
     </MainCard>
   )
 }

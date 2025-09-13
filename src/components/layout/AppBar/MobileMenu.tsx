@@ -3,6 +3,7 @@ import { Menu, MenuItem, IconButton, Badge } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
 
 interface MobileMenuProps {
   mobileMoreAnchorEl: null | HTMLElement;
@@ -24,6 +25,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   isMenuOpen,
 }) => {
   const mobileMenuId = 'primary-search-account-menu-mobile';
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
 
   return (
     <Menu
@@ -87,6 +94,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
       >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </Menu>
   );

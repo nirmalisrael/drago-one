@@ -58,7 +58,8 @@ class RouteRegistryClass {
 
     // Auto-register all modules
     await Promise.all([
-      this.loadModule('dashboard')
+      this.loadModule('dashboard'),
+      this.loadModule('auth'),
     ]);
 
     this.initialized = true;

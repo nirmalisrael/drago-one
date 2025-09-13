@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Palette as PaletteIcon, Check as CheckIcon } from '@mui/icons-material';
+
+// Use your own context/hook that supplies theme data, e.g.:
 import { useTheme } from '../../hooks/useTheme';
 
 export const ThemeSettings: React.FC = () => {
@@ -28,16 +30,19 @@ export const ThemeSettings: React.FC = () => {
           />
         </Box>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {Object.values(availableThemes).map((theme) => (
-            <Grid size={{ xs: 12, sm: 3 }} key={theme.name}>
+            <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={theme.name}>
               <Card
+                aria-pressed={currentTheme === theme.name}
+                tabIndex={0}
                 sx={{
                   cursor: 'pointer',
                   border: currentTheme === theme.name ? 2 : 1,
                   borderColor: currentTheme === theme.name
                     ? 'primary.main'
                     : alpha('#000', 0.12),
+                  boxShadow: currentTheme === theme.name ? 8 : 1,
                   '&:hover': {
                     transform: 'translateY(-2px)',
                     boxShadow: 3,
@@ -45,6 +50,9 @@ export const ThemeSettings: React.FC = () => {
                   transition: 'all 0.2s ease-in-out',
                 }}
                 onClick={() => setTheme(theme.name)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') setTheme(theme.name);
+                }}
               >
                 <CardContent>
                   <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
@@ -56,39 +64,100 @@ export const ThemeSettings: React.FC = () => {
                     )}
                   </Box>
 
-                  {/* Color Preview */}
-                  <Box display="flex" gap={0.5} mb={2}>
+                  {/* Color Role Dots with Labels */}
+                  <Box display="flex" gap={2} mb={2}>
                     {[
-                      theme.colors.primary.main,
-                      theme.colors.primary.light,
-                      theme.colors.secondary.main,
-                      theme.colors.text.primary,
-                    ].map((color, index) => (
-                      <Box
-                        key={index}
-                        sx={{
-                          width: 24,
-                          height: 24,
-                          backgroundColor: color,
-                          borderRadius: 1,
-                          border: '1px solid',
-                          borderColor: alpha('#000', 0.1),
-                        }}
-                      />
+                      { color: theme.colors.primary.main, label: 'Primary' },
+                      { color: theme.colors.secondary.main, label: 'Secondary' },
+                      { color: theme.colors.background.default, label: 'Bg.' },
+                      { color: theme.colors.text.primary, label: 'Text' },
+                    ].map(({ color, label }, index) => (
+                      <Box key={index + 1} display="flex" flexDirection="column" alignItems="center">
+                        <Box
+                          sx={{
+                            width: 24,
+                            height: 24,
+                            backgroundColor: color,
+                            borderRadius: 1,
+                            border: '1px solid',
+                            borderColor: alpha('#000', 0.1),
+                            mb: 0.5,
+                          }}
+                        />
+                        <Typography variant="caption" color="textSecondary">
+                          {label}
+                        </Typography>
+                      </Box>
                     ))}
                   </Box>
 
-                  <Button
-                    variant={currentTheme === theme.name ? "contained" : "outlined"}
-                    size="small"
-                    fullWidth
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setTheme(theme.name);
+                  {/* Live Example Preview */}
+                  <Box
+                    sx={{
+                      p: 1.5,
+                      borderRadius: 2,
+                      background: theme.colors.background.default,
+                      border: '1px solid',
+                      borderColor: alpha(theme.colors.primary.main, 0.15),
+                      mb: 2,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 1,
                     }}
                   >
-                    {currentTheme === theme.name ? 'Active' : 'Apply'}
-                  </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      disableElevation
+                      sx={{
+                        background: theme.colors.primary.main,
+                        color: theme.colors.primary.contrastText,
+                        '&:hover': {
+                          background: theme.colors.primary.dark,
+                        },
+                        mb: 1,
+                      }}
+                    >
+                      Example Button
+                    </Button>
+                    <Chip
+                      label="Chip"
+                      size="small"
+                      sx={{
+                        background: theme.colors.secondary.main,
+                        color: theme.colors.secondary.contrastText,
+                        fontWeight: 500,
+                      }}
+                    />
+                    <Typography
+                      sx={{
+                        color: theme.colors.text.primary,
+                        mt: 1,
+                        fontSize: 14,
+                      }}
+                    >
+                      Sample preview text
+                    </Typography>
+                  </Box>
+
+                  {/* Actions */}
+                  {currentTheme === theme.name ? (
+                    <Button variant="contained" size="small" fullWidth disabled>
+                      Active
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      fullWidth
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setTheme(theme.name);
+                      }}
+                    >
+                      Apply
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             </Grid>
@@ -98,3 +167,5 @@ export const ThemeSettings: React.FC = () => {
     </Card>
   );
 };
+
+export default ThemeSettings;

@@ -1,4 +1,4 @@
-// UnifiedMenuItems.tsx - Improved Version
+// UnifiedMenuItems.tsx - Corrected Version
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Box,
@@ -12,7 +12,8 @@ import {
   ListItemButton,
   ListItemText,
   Popper,
-  useTheme
+  useTheme,
+  alpha
 } from '@mui/material';
 import { Link as RouterLink, useLocation, matchPath } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -53,8 +54,8 @@ const MenuItem: React.FC<MenuItemProps> = ({
           mb: 0.5,
           justifyContent: 'start',
           width: '100%',
-          transition: theme.transitions.create(['width'], {
-            duration: theme.transitions.duration.standard,
+          transition: theme.transitions?.create?.(['width'], {
+            duration: theme.transitions?.duration?.standard || 300,
           }),
         }}>
           <IconButton
@@ -64,25 +65,25 @@ const MenuItem: React.FC<MenuItemProps> = ({
             sx={{
               width: 48,
               height: itemHeight,
-              borderRadius: 2,
+              borderRadius: theme.shape?.borderRadius || 2,
               backgroundColor: active
-                ? `${theme.palette.primary.main}10`
+                ? alpha(theme.palette.primary.main, 0.1)
                 : 'transparent',
               border: active
-                ? `1px solid ${theme.palette.primary.main}30`
+                ? `1px solid ${alpha(theme.palette.primary.main, 0.3)}`
                 : '1px solid transparent',
               color: active
                 ? theme.palette.primary.main
                 : theme.palette.text.primary,
               '&:hover': {
                 backgroundColor: active
-                  ? `${theme.palette.primary.main}25`
-                  : `${theme.palette.action.hover}80`,
+                  ? alpha(theme.palette.primary.main, 0.25)
+                  : alpha(theme.palette.action?.hover || theme.palette.grey?.[200] || '#f5f5f5', 0.8),
                 transform: 'scale(1.05)',
-                boxShadow: theme.shadows[4],
+                boxShadow: theme.shadows?.[4] || '0 4px 8px rgba(0,0,0,0.12)',
               },
-              transition: theme.transitions.create(['background-color', 'color', 'transform', 'box-shadow', 'border'], {
-                duration: theme.transitions.duration.short,
+              transition: theme.transitions?.create?.(['background-color', 'color', 'transform', 'box-shadow', 'border'], {
+                duration: theme.transitions?.duration?.short || 200,
               }),
             }}
           >
@@ -109,22 +110,22 @@ const MenuItem: React.FC<MenuItemProps> = ({
         padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
         paddingLeft: `${paddingLeft}px`,
         marginBottom: 0.5,
-        borderRadius: 2,
+        borderRadius: theme.shape?.borderRadius || 2,
         backgroundColor: active
-          ? `${theme.palette.primary.main}10`
+          ? alpha(theme.palette.primary.main, 0.1)
           : 'transparent',
         border: active
-          ? `1px solid ${theme.palette.primary.main}30`
+          ? `1px solid ${alpha(theme.palette.primary.main, 0.3)}`
           : '1px solid transparent',
         '&:hover': {
           backgroundColor: active
-            ? `${theme.palette.primary.main}20`
-            : `${theme.palette.action.hover}60`,
+            ? alpha(theme.palette.primary.main, 0.2)
+            : alpha(theme.palette.action?.hover || theme.palette.grey?.[200] || '#f5f5f5', 0.6),
           transform: 'translateX(4px)',
-          boxShadow: `0 2px 8px ${theme.palette.primary.main}20`,
+          boxShadow: `0 2px 8px ${alpha(theme.palette.primary.main, 0.2)}`,
         },
-        transition: theme.transitions.create(['background-color', 'color', 'transform', 'box-shadow', 'border'], {
-          duration: theme.transitions.duration.short,
+        transition: theme.transitions?.create?.(['background-color', 'color', 'transform', 'box-shadow', 'border'], {
+          duration: theme.transitions?.duration?.short || 200,
         }),
       }}
       onClick={onClick}
@@ -145,8 +146,9 @@ const MenuItem: React.FC<MenuItemProps> = ({
       <Typography
         variant="body2"
         sx={{
-          fontWeight: active ? theme.typography.fontWeightBold : theme.typography.fontWeightRegular,
-          // fontSize: '0.875rem',
+          fontWeight: active
+            ? (theme.typography.fontWeightBold || 600)
+            : (theme.typography.fontWeightRegular || 400),
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
@@ -176,7 +178,7 @@ const ExpandIcon = (open: boolean) => (
 function usePopperHandlers(collapsed: boolean) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [popperOpen, setPopperOpen] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
     if (collapsed) {
@@ -257,25 +259,25 @@ const CollapsedSubmenu: React.FC<{
           sx={{
             width: 48,
             height: 48,
-            borderRadius: 2,
+            borderRadius: theme.shape?.borderRadius || 2,
             backgroundColor: isActive
-              ? `${theme.palette.primary.main}10`
+              ? alpha(theme.palette.primary.main, 0.1)
               : 'transparent',
             border: isActive
-              ? `1px solid ${theme.palette.primary.main}30`
+              ? `1px solid ${alpha(theme.palette.primary.main, 0.3)}`
               : '1px solid transparent',
             color: isActive
               ? theme.palette.primary.main
               : theme.palette.text.primary,
             '&:hover': {
               backgroundColor: isActive
-                ? `${theme.palette.primary.main}25`
-                : `${theme.palette.action.hover}80`,
+                ? alpha(theme.palette.primary.main, 0.25)
+                : alpha(theme.palette.action?.hover || theme.palette.grey?.[200] || '#f5f5f5', 0.8),
               transform: 'scale(1.05)',
-              boxShadow: theme.shadows[4],
+              boxShadow: theme.shadows?.[4] || '0 4px 8px rgba(0,0,0,0.12)',
             },
-            transition: theme.transitions.create(['background-color', 'color', 'transform', 'box-shadow', 'border'], {
-              duration: theme.transitions.duration.short,
+            transition: theme.transitions?.create?.(['background-color', 'color', 'transform', 'box-shadow', 'border'], {
+              duration: theme.transitions?.duration?.short || 200,
             }),
           }}
         >
@@ -286,7 +288,7 @@ const CollapsedSubmenu: React.FC<{
         open={popperOpen}
         anchorEl={anchorEl}
         placement="right-start"
-        sx={{ zIndex: theme.zIndex.drawer + 2 }}
+        sx={{ zIndex: (theme.zIndex?.drawer || 1200) + 2 }}
         modifiers={[
           {
             name: 'offset',
@@ -306,8 +308,8 @@ const CollapsedSubmenu: React.FC<{
             overflow: 'hidden',
             background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${theme.palette.background.default} 100%)`,
             backdropFilter: 'blur(20px)',
-            border: `1px solid ${theme.palette.divider}40`,
-            boxShadow: `0 8px 32px ${theme.palette.common.black}20`,
+            border: `1px solid ${alpha(theme.palette.divider, 0.4)}`,
+            boxShadow: `0 8px 32px ${alpha(theme.palette.common?.black || '#000000', 0.2)}`,
             '&::before': {
               content: '""',
               position: 'absolute',
@@ -315,7 +317,7 @@ const CollapsedSubmenu: React.FC<{
               left: 0,
               right: 0,
               bottom: 0,
-              background: `linear-gradient(135deg, ${theme.palette.primary.main}05 0%, transparent 50%)`,
+              background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.05)} 0%, transparent 50%)`,
               pointerEvents: 'none',
             },
           }}
@@ -334,7 +336,7 @@ const CollapsedSubmenu: React.FC<{
                 left: 0,
                 right: 0,
                 height: '1px',
-                background: `linear-gradient(90deg, transparent 0%, ${theme.palette.primary.contrastText}30 50%, transparent 100%)`,
+                background: `linear-gradient(90deg, transparent 0%, ${alpha(theme.palette.primary.contrastText, 0.3)} 50%, transparent 100%)`,
               },
             }}
           >
@@ -343,9 +345,11 @@ const CollapsedSubmenu: React.FC<{
               <Typography
                 variant="body2"
                 sx={{
-                  fontWeight: isActive ? theme.typography.fontWeightBold : theme.typography.fontWeightRegular,
-
-                }} >
+                  fontWeight: isActive
+                    ? (theme.typography.fontWeightBold || 600)
+                    : (theme.typography.fontWeightRegular || 400),
+                }}
+              >
                 {label}
               </Typography>
             </Box>
@@ -359,32 +363,33 @@ const CollapsedSubmenu: React.FC<{
                   sx={{
                     m: 0,
                     px: theme.spacing(1.2),
-                    py: theme.spacing(.8),
-                    borderRadius: 2,
+                    py: theme.spacing(0.8),
+                    borderRadius: theme.shape?.borderRadius || 2,
                     backgroundColor: subItem.path === currentPath
-                      ? `${theme.palette.primary.main}15`
+                      ? alpha(theme.palette.primary.main, 0.15)
                       : 'transparent',
                     border: subItem.path === currentPath
-                      ? `1px solid ${theme.palette.primary.main}30`
+                      ? `1px solid ${alpha(theme.palette.primary.main, 0.3)}`
                       : '1px solid transparent',
                     '&:hover': {
                       backgroundColor: subItem.path === currentPath
-                        ? `${theme.palette.primary.main}25`
-                        : `${theme.palette.action.hover}60`,
+                        ? alpha(theme.palette.primary.main, 0.25)
+                        : alpha(theme.palette.action?.hover || theme.palette.grey?.[200] || '#f5f5f5', 0.6),
                       transform: 'translateX(4px)',
-                      boxShadow: `0 2px 8px ${theme.palette.primary.main}15`,
+                      boxShadow: `0 2px 8px ${alpha(theme.palette.primary.main, 0.15)}`,
                     },
-                    transition: theme.transitions.create(['background-color', 'transform', 'box-shadow', 'border'], {
-                      duration: theme.transitions.duration.short,
+                    transition: theme.transitions?.create?.(['background-color', 'transform', 'box-shadow', 'border'], {
+                      duration: theme.transitions?.duration?.short || 200,
                     }),
                   }}
                 >
                   <ListItemText
                     primary={subItem.label}
                     primaryTypographyProps={{
-                      // from the body2
-                      fontSize: theme.typography.fontSize,
-                      fontWeight: subItem.path === currentPath ? theme.typography.fontWeightBold : theme.typography.fontWeightRegular,
+                      fontSize: theme.typography.body2?.fontSize || '0.875rem',
+                      fontWeight: subItem.path === currentPath
+                        ? (theme.typography.fontWeightBold || 600)
+                        : (theme.typography.fontWeightRegular || 400),
                       color: subItem.path === currentPath
                         ? theme.palette.primary.main
                         : theme.palette.text.primary,
@@ -416,8 +421,8 @@ const Submenu: React.FC<SubmenuProps> = ({
   useEffect(() => {
     if (!collapsed) {
       const isActive = items.some(item =>
-        item.path && matchPath({ path: item.path, }, location.pathname) ||
-        (item.subItems?.some(subItem => subItem.path && matchPath({ path: subItem.path, }, location.pathname)))
+        item.path && matchPath({ path: item.path }, location.pathname) ||
+        (item.subItems?.some(subItem => subItem.path && matchPath({ path: subItem.path }, location.pathname)))
       );
       setOpen(isActive);
     }
@@ -461,8 +466,8 @@ const Submenu: React.FC<SubmenuProps> = ({
       onMouseLeave={handleMouseLeave}
       sx={{
         width: '100%',
-        transition: theme.transitions.create(['width'], {
-          duration: theme.transitions.duration.standard,
+        transition: theme.transitions?.create?.(['width'], {
+          duration: theme.transitions?.duration?.standard || 300,
         }),
       }}
     >
@@ -510,7 +515,10 @@ interface UnifiedMenuItemsProps {
   collapsed?: boolean;
 }
 
-const UnifiedMenuItems: React.FC<UnifiedMenuItemsProps> = ({ menuData, collapsed = false }) => {
+const UnifiedMenuItems: React.FC<UnifiedMenuItemsProps> = ({
+  menuData,
+  collapsed = false
+}) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const theme = useTheme();
@@ -522,9 +530,9 @@ const UnifiedMenuItems: React.FC<UnifiedMenuItemsProps> = ({ menuData, collapsed
       display: 'flex',
       flexDirection: 'column',
       alignItems: collapsed ? 'center' : 'flex-start',
-      transition: theme.transitions.create(['padding', 'align-items'], {
-        duration: theme.transitions.duration.standard,
-        easing: theme.transitions.easing.easeInOut,
+      transition: theme.transitions?.create?.(['padding', 'align-items'], {
+        duration: theme.transitions?.duration?.standard || 300,
+        easing: theme.transitions?.easing?.easeInOut,
       }),
       // Add this to prevent content overflow during transition
       overflow: 'hidden',
@@ -532,8 +540,8 @@ const UnifiedMenuItems: React.FC<UnifiedMenuItemsProps> = ({ menuData, collapsed
       {menuData.map((item, index) => (
         <Box key={index + 1} sx={{
           width: '100%',
-          transition: theme.transitions.create(['width'], {
-            duration: theme.transitions.duration.standard,
+          transition: theme.transitions?.create?.(['width'], {
+            duration: theme.transitions?.duration?.standard || 300,
           }),
         }}>
           {item.subItems ? (

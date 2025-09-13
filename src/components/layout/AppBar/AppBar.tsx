@@ -1,4 +1,4 @@
-// AppBarComponent.tsx - Enhanced Version with Dynamic Theme Support
+// AppBarComponent.tsx - Corrected Version with Proper Theme Color Usage
 import React from 'react';
 import {
   AppBar,
@@ -22,7 +22,10 @@ import { APP_BAR_DESKTOP_HEIGHT, APP_BAR_MOBILE_HEIGHT } from '@/constants/layou
 import LogoSection from '../Drawer/LogoSection';
 import MobileMenu from './MobileMenu';
 
+const APP_BAR_INPUT_HEIGHT = 42; // Same as IconButton
+
 // Enhanced Search Component with better theme support
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -63,6 +66,9 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
+  height: APP_BAR_INPUT_HEIGHT,
+  minHeight: APP_BAR_INPUT_HEIGHT,
+  borderRadius: theme.shape.borderRadius,
   width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -84,35 +90,109 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-// Enhanced Action Button with better theme support
+// CORRECTED: Action buttons now use proper contrast colors
 const ActionButton = styled(IconButton)(({ theme }) => ({
-  width: 40,
-  height: 40,
-  backgroundColor: alpha(theme.palette.primary.contrastText, 0.1),
+  width: 44,
+  height: APP_BAR_INPUT_HEIGHT,
+  // FIXED: Use action.hover with primary contrast text for better visibility
+  backgroundColor: alpha(theme.palette.action?.hover || theme.palette.primary.contrastText, 0.1),
   color: theme.palette.primary.contrastText,
   margin: theme.spacing(0, 0.5),
+  border: `1px solid ${alpha(theme.palette.primary.contrastText, 0.2)}`,
+  backdropFilter: 'blur(8px)',
   '&:hover': {
-    backgroundColor: alpha(theme.palette.primary.contrastText, 0.2),
-    transform: 'translateY(-1px)',
+    // FIXED: Use action.selected for hover state
+    backgroundColor: alpha(theme.palette.action?.selected || theme.palette.primary.contrastText, 0.15),
+    transform: 'translateY(-2px)',
+    boxShadow: `0 4px 12px ${alpha(theme.palette.primary.dark, 0.25)}`,
+    borderColor: alpha(theme.palette.primary.contrastText, 0.4),
   },
-  transition: theme.transitions.create(['background-color', 'transform'], {
+  '&:active': {
+    transform: 'translateY(-1px)',
+    // FIXED: Use action.selected for active state
+    backgroundColor: alpha(theme.palette.action?.selected || theme.palette.primary.contrastText, 0.2),
+  },
+  '&:focus-visible': {
+    // FIXED: Use primary.light for focus outline on dark backgrounds
+    outline: `2px solid ${theme.palette.primary.light}`,
+    outlineOffset: '2px',
+  },
+  transition: theme.transitions.create([
+    'background-color',
+    'transform',
+    'box-shadow',
+    'border-color'
+  ], {
     duration: theme.transitions.duration.short,
   }),
 }));
 
-// Toggle Button for Desktop Drawer
+// FIXED: Toggle button uses same pattern as ActionButton for consistency
 const ToggleButton = styled(IconButton)(({ theme }) => ({
-  width: 40,
-  height: 40,
-  backgroundColor: alpha(theme.palette.primary.contrastText, 0.1),
+  width: 44,
+  height: APP_BAR_INPUT_HEIGHT,
+  backgroundColor: alpha(theme.palette.action?.hover || theme.palette.primary.contrastText, 0.1),
   color: theme.palette.primary.contrastText,
+  border: `1px solid ${alpha(theme.palette.primary.contrastText, 0.2)}`,
+  backdropFilter: 'blur(8px)',
   '&:hover': {
-    backgroundColor: alpha(theme.palette.primary.contrastText, 0.2),
-    transform: 'scale(1.05)',
+    backgroundColor: alpha(theme.palette.action?.selected || theme.palette.primary.contrastText, 0.15),
+    transform: 'scale(1.05) translateY(-1px)',
+    boxShadow: `0 4px 12px ${alpha(theme.palette.primary.dark, 0.25)}`,
+    borderColor: alpha(theme.palette.primary.contrastText, 0.4),
   },
-  transition: theme.transitions.create(['background-color', 'transform'], {
+  '&:active': {
+    transform: 'scale(1.02)',
+    backgroundColor: alpha(theme.palette.action?.selected || theme.palette.primary.contrastText, 0.2),
+  },
+  '&:focus-visible': {
+    outline: `2px solid ${theme.palette.primary.light}`,
+    outlineOffset: '2px',
+  },
+  transition: theme.transitions.create([
+    'background-color',
+    'transform',
+    'box-shadow',
+    'border-color'
+  ], {
     duration: theme.transitions.duration.short,
   }),
+}));
+
+// CORRECTED: Profile section uses consistent styling with other interactive elements
+const ProfileSection = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1.5),
+  padding: theme.spacing(0.75, 2),
+  borderRadius: Number(theme.shape.borderRadius),
+  // FIXED: Consistent with ActionButton styling
+  backgroundColor: alpha(theme.palette.action?.hover || theme.palette.primary.contrastText, 0.1),
+  border: `1px solid ${alpha(theme.palette.primary.contrastText, 0.2)}`,
+  cursor: 'pointer',
+  backdropFilter: 'blur(8px)',
+  transition: theme.transitions.create([
+    'background-color',
+    'transform',
+    'box-shadow',
+    'border-color'
+  ], {
+    duration: theme.transitions.duration.short,
+  }),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.action?.selected || theme.palette.primary.contrastText, 0.15),
+    transform: 'translateY(-2px)',
+    boxShadow: `0 4px 12px ${alpha(theme.palette.primary.dark, 0.25)}`,
+    borderColor: alpha(theme.palette.primary.contrastText, 0.4),
+  },
+  '&:active': {
+    transform: 'translateY(-1px)',
+    backgroundColor: alpha(theme.palette.action?.selected || theme.palette.primary.contrastText, 0.2),
+  },
+  '&:focus-visible': {
+    outline: `2px solid ${theme.palette.primary.light}`,
+    outlineOffset: '2px',
+  },
 }));
 
 interface AppBarComponentProps {
@@ -131,10 +211,11 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
   const theme = useTheme();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  console.log(collapsed);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const isMenuOpen = Boolean(anchorEl);
+
+  console.log(collapsed);
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -160,13 +241,14 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
       sx={{
         height: isMobile ? APP_BAR_MOBILE_HEIGHT : APP_BAR_DESKTOP_HEIGHT,
         zIndex: theme.zIndex.drawer + 1,
-        // Use clean primary color background
-        backgroundColor: theme.palette.primary.main,
-        // Subtle shadow for depth
-        boxShadow: `0 2px 8px ${alpha(theme.palette.common.black, 0.1)}`,
-        // Border for definition
-        borderBottom: `1px solid ${alpha(theme.palette.primary.contrastText, 0.1)}`,
-        transition: theme.transitions.create(['width', 'margin-left'], {
+        // FIXED: Better gradient using primary color variants
+        background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+        // FIXED: Use primary.dark with proper alpha for shadow
+        boxShadow: `0 4px 20px ${alpha(theme.palette.primary.dark, 0.4)}`,
+        // FIXED: Use primary.light with lower alpha for subtle border
+        borderBottom: `1px solid ${alpha(theme.palette.primary.light, 0.15)}`,
+        backdropFilter: 'blur(10px)',
+        transition: theme.transitions.create(['width', 'margin-left', 'background'], {
           easing: theme.transitions.easing.easeInOut,
           duration: theme.transitions.duration.standard,
         }),
@@ -176,7 +258,8 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
         sx={{
           height: '100%',
           minHeight: 'auto !important',
-          px: { xs: 2, sm: 2 },
+          px: { xs: 2, sm: 3 },
+          gap: theme.spacing(2),
         }}
       >
         {/* Mobile Menu Button */}
@@ -185,7 +268,6 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
             edge="start"
             aria-label="toggle drawer"
             onClick={onDrawerToggle}
-            sx={{ mr: 2 }}
           >
             <MenuIcon />
           </ToggleButton>
@@ -196,18 +278,16 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
           <ToggleButton
             onClick={onToggleCollapse}
             aria-label="toggle drawer"
-            sx={{ mr: 2 }}
           >
             <MenuIcon />
           </ToggleButton>
         )}
 
-
+        {/* Logo Section */}
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
-            mr: 2,
             transition: theme.transitions.create(['opacity'], {
               duration: theme.transitions.duration.standard,
               easing: theme.transitions.easing.easeInOut,
@@ -219,6 +299,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
 
         {/* Spacer to push actions to the right */}
         <Box sx={{ flexGrow: 1 }} />
+
         {/* Search Bar - Only on Desktop */}
         {!isMobile && (
           <Search>
@@ -226,32 +307,48 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search..."
+              placeholder="Search anything…"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
         )}
 
         {/* Desktop Actions */}
-        <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1 }}>
-          <ActionButton aria-label="show new mails">
+        <Box sx={{
+          display: { xs: 'none', md: 'flex' },
+          alignItems: 'center',
+          gap: theme.spacing(1)
+        }}>
+          <ActionButton
+            aria-label="show new mails"
+            title="Messages"
+          >
             <Badge
               badgeContent={4}
               color="error"
               sx={{
                 '& .MuiBadge-badge': {
+                  // FIXED: Use semantic error colors consistently
                   backgroundColor: theme.palette.error.main,
                   color: theme.palette.error.contrastText,
-                  fontWeight: 600,
+                  fontWeight: 700,
                   fontSize: '0.7rem',
+                  minWidth: '18px',
+                  height: '18px',
+                  // FIXED: Use background.paper for badge border instead of primary
+                  border: `2px solid ${theme.palette.background.paper}`,
+                  boxShadow: `0 2px 8px ${alpha(theme.palette.error.main, 0.4)}`,
                 }
               }}
             >
-              <MailIcon />
+              <MailIcon fontSize="small" />
             </Badge>
           </ActionButton>
 
-          <ActionButton aria-label="show new notifications">
+          <ActionButton
+            aria-label="show new notifications"
+            title="Notifications"
+          >
             <Badge
               badgeContent={17}
               color="error"
@@ -259,42 +356,39 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
                 '& .MuiBadge-badge': {
                   backgroundColor: theme.palette.error.main,
                   color: theme.palette.error.contrastText,
-                  fontWeight: 600,
+                  fontWeight: 700,
                   fontSize: '0.7rem',
+                  minWidth: '18px',
+                  height: '18px',
+                  border: `2px solid ${theme.palette.background.paper}`,
+                  boxShadow: `0 2px 8px ${alpha(theme.palette.error.main, 0.4)}`,
                 }
               }}
             >
-              <NotificationsIcon />
+              <NotificationsIcon fontSize="small" />
             </Badge>
           </ActionButton>
 
-          {/* Profile Section */}
-          <Box
+          {/* Enhanced Profile Section */}
+          <ProfileSection
             onClick={handleProfileMenuOpen}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1.5,
-              padding: theme.spacing(0.5, 1.5),
-              borderRadius: 2,
-              backgroundColor: alpha(theme.palette.primary.contrastText, 0.1),
-              cursor: 'pointer',
-              transition: theme.transitions.create(['background-color', 'transform'], {
-                duration: theme.transitions.duration.short,
-              }),
-              '&:hover': {
-                backgroundColor: alpha(theme.palette.primary.contrastText, 0.2),
-                transform: 'translateY(-1px)',
-              },
-            }}
+            role="button"
+            tabIndex={0}
+            aria-label="User profile menu"
           >
             <Avatar
               sx={{
-                width: 32,
-                height: 32,
+                width: 36,
+                height: 36,
+                // FIXED: Use secondary.main for avatar background
                 backgroundColor: theme.palette.secondary.main,
+                // FIXED: Use secondary.contrastText for avatar text
+                color: theme.palette.secondary.contrastText,
                 fontSize: '0.875rem',
-                fontWeight: 600,
+                fontWeight: 700,
+                // FIXED: Use background.paper for avatar border
+                border: `2px solid ${theme.palette.background.paper}`,
+                boxShadow: `0 2px 8px ${alpha(theme.palette.secondary.dark, 0.3)}`,
               }}
             >
               JD
@@ -304,8 +398,9 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
                 variant="body2"
                 sx={{
                   color: theme.palette.primary.contrastText,
-                  fontWeight: 600,
+                  fontWeight: 700,
                   lineHeight: 1.2,
+                  fontSize: '0.875rem',
                 }}
               >
                 John Doe
@@ -313,14 +408,17 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
               <Typography
                 variant="caption"
                 sx={{
-                  color: alpha(theme.palette.primary.contrastText, 0.7),
+                  // FIXED: Use primary.light for secondary text on primary background
+                  color: theme.palette.primary.light,
                   lineHeight: 1,
+                  fontSize: '0.75rem',
+                  fontWeight: 500,
                 }}
               >
                 Administrator
               </Typography>
             </Box>
-          </Box>
+          </ProfileSection>
         </Box>
 
         {/* Mobile Actions */}
@@ -330,7 +428,10 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
           gap: theme.spacing(1)
         }}>
           {/* Mobile Notifications */}
-          <ActionButton aria-label="show notifications">
+          <ActionButton
+            aria-label="show notifications"
+            title="Notifications"
+          >
             <Badge
               badgeContent={21}
               color="error"
@@ -338,9 +439,12 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
                 '& .MuiBadge-badge': {
                   backgroundColor: theme.palette.error.main,
                   color: theme.palette.error.contrastText,
-                  fontWeight: theme.typography.fontWeightBold,
-                  fontSize: theme.typography.caption.fontSize,
-                  fontFamily: theme.typography.fontFamily,
+                  fontWeight: 700,
+                  fontSize: '0.7rem',
+                  minWidth: '16px',
+                  height: '16px',
+                  border: `2px solid ${theme.palette.background.paper}`,
+                  boxShadow: `0 2px 8px ${alpha(theme.palette.error.main, 0.4)}`,
                 }
               }}
             >
@@ -354,6 +458,7 @@ const AppBarComponent: React.FC<AppBarComponentProps> = ({
             aria-controls="mobile-menu"
             aria-haspopup="true"
             onClick={handleMobileMenuOpen}
+            title="More options"
           >
             <MoreIcon fontSize="small" />
           </ActionButton>
