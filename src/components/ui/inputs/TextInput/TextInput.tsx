@@ -1,5 +1,5 @@
 // src/components/ui/inputs/TextInput/TextInput.tsx
-import React from 'react';
+import React, { type JSX } from 'react';
 import {
   TextField,
   Box,
@@ -8,14 +8,16 @@ import {
   alpha,
   InputAdornment,
   IconButton,
+  type SxProps,
+  type Theme,
 } from '@mui/material';
-import { Controller, type Control, type FieldError } from 'react-hook-form';
+import { Controller, type Control, type FieldError, type FieldValues, type Path, type RegisterOptions } from 'react-hook-form';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 // TypeScript interfaces
-interface TextInputProps {
-  name: string;
-  control: Control<any>;
+interface TextInputProps<TFormValues extends FieldValues> {
+  name: Path<TFormValues>;
+  control: Control<TFormValues>;
   label?: string;
   placeholder?: string;
   type?: 'text' | 'email' | 'tel' | 'url' | 'search' | 'password' | 'number';
@@ -31,12 +33,12 @@ interface TextInputProps {
   error?: FieldError;
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
-  sx?: object;
-  customRules?: object;
+  sx?: SxProps<Theme>;
+  customRules?: RegisterOptions<TFormValues, Path<TFormValues>>;
   autoFocus?: boolean;
 }
 
-const TextInput: React.FC<TextInputProps> = ({
+const TextInput = <TFormValues extends FieldValues>({
   name,
   control,
   label,
@@ -57,7 +59,7 @@ const TextInput: React.FC<TextInputProps> = ({
   sx,
   customRules,
   autoFocus,
-}) => {
+}: TextInputProps<TFormValues>): JSX.Element => {
   const theme = useTheme();
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -200,7 +202,14 @@ const TextInput: React.FC<TextInputProps> = ({
           <>
             <TextField
               {...field}
-              label={label}
+              label={
+                required ? (
+                  <span>
+                    {label}
+                    <span style={{ color: theme.palette.error.dark }}>&nbsp;*</span>
+                  </span>
+                ) : label
+              }
               placeholder={placeholder || `Enter ${label?.toLowerCase() || 'text'}`}
               type={showPassword ? 'text' : type}
               variant={variant}

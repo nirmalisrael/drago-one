@@ -22,6 +22,7 @@ export const FORMAT_PATTERNS = {
   OTP_6: '# # # # # #', // 1 2 3 4 5 6
   ACCOUNT: '####-####-####', // 1234-5678-9012
   ROUTING: '#########', // 123456789
+  EMPLOYEE_ID: 'EMP####', // 1234567
 } as const;
 
 // Country codes configuration

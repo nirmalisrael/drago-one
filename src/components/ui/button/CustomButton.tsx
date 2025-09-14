@@ -8,11 +8,13 @@ import {
   alpha,
   type ButtonProps as MUIButtonProps,
   Box,
+  type SxProps,
+  type Theme,
 } from '@mui/material';
-import { Controller, type Control } from 'react-hook-form';
+import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form';
 
 // Define custom props with action-based types
-interface CustomButtonProps {
+interface CustomButtonProps<TFormValues extends FieldValues> {
   // Loading & State
   isLoading?: boolean;
   disabled?: boolean;
@@ -55,15 +57,15 @@ interface CustomButtonProps {
   size?: 'small' | 'medium' | 'large';
 
   // Form Integration
-  name?: string;
-  control?: Control<any>;
+  name?: Path<TFormValues>;
+  control?: Control<TFormValues>;
   htmlType?: 'button' | 'submit' | 'reset';
 
   // Styling & Layout
   fullWidth?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
-  sx?: object;
+  sx?: SxProps<Theme>;
 
   // Events
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -73,7 +75,7 @@ interface CustomButtonProps {
   disableRipple?: boolean;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({
+const CustomButton = <TFormValues extends FieldValues>({
   // Loading & State
   isLoading = false,
   disabled = false,
@@ -105,7 +107,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   // Advanced Props
   disableElevation = false,
   disableRipple = false,
-}) => {
+}: CustomButtonProps<TFormValues>) => {
   const theme = useTheme();
 
   // Map action-based type to MUI color and get appropriate styling
@@ -372,6 +374,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     fullWidth,
     disabled: disabled || isLoading,
     type: getHtmlType(),
+    formNoValidate: true,
     name,
     onClick,
     disableElevation,

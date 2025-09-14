@@ -1,16 +1,13 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { RouteRegistry } from './RouteRegistry';
 import type { ModuleRoute } from './types';
-import ProtectedRoute from './ProtectedRoute';
 import Layout from '../components/layout/Layout';
 import { LoadingFallback } from '@/components/common/LoadingFallback';
-import ErrorBoundary from '@/components/common/ErrorBoundary';
 import PageNotFound from '@/components/common/PageNotFound';
 
 const AppRoutes: React.FC = () => {
   const [routes, setRoutes] = useState<ModuleRoute[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const initializeRoutes = async () => {
@@ -19,8 +16,6 @@ const AppRoutes: React.FC = () => {
         setRoutes(RouteRegistry.getAllRoutes());
       } catch (error) {
         console.error('Failed to initialize routes:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -32,6 +27,8 @@ const AppRoutes: React.FC = () => {
   const protectedRoutes = routes.filter(route => route.requiresAuth !== false);
 
   const renderRoute = (route: ModuleRoute, isPublic = false) => {
+    console.log('Route:', route, isPublic);
+
     const RouteComponent = route.element;
     return (
       <Route

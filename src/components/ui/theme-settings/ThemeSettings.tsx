@@ -10,11 +10,11 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Palette as PaletteIcon, Check as CheckIcon } from '@mui/icons-material';
+import { useTheme } from '@/hooks/useTheme';
 
 // Use your own context/hook that supplies theme data, e.g.:
-import { useTheme } from '../../hooks/useTheme';
 
-export const ThemeSettings: React.FC = () => {
+const ThemeSettings: React.FC = () => {
   const { currentTheme, setTheme, availableThemes } = useTheme();
 
   return (

@@ -2,23 +2,18 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Box,
-  Button,
   Paper,
   Typography,
   Container,
   useTheme,
   InputAdornment,
-  IconButton,
-  alpha
 } from '@mui/material';
 import {
   Email as EmailIcon,
-  Lock as LockIcon,
-  Visibility,
-  VisibilityOff
+  Lock as LockIcon
 } from '@mui/icons-material';
 import { TextInput } from '@/components/ui/';
-import CustomButton from '../ui/CustomButton';
+import CustomButton from '../ui/button/CustomButton';
 import { useNavigate } from 'react-router-dom';
 
 // Form data interface
@@ -31,7 +26,6 @@ interface LoginFormData {
 
 const LoginForm: React.FC = () => {
   const theme = useTheme();
-  const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
 
   const {
@@ -56,7 +50,7 @@ const LoginForm: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API
       navigate('/dashboard');
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('Login failed:', error, errors);
     }
   };
 
@@ -114,7 +108,7 @@ const LoginForm: React.FC = () => {
             control={control}
             label="Password"
             placeholder="Enter your password"
-            type={showPassword ? 'text' : 'password'}
+            type='password'
             required
             startAdornment={
               <InputAdornment position="start">

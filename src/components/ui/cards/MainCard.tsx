@@ -5,16 +5,18 @@ import {
   Card,
   CardContent,
   useTheme,
+  type SxProps,
+  type Theme,
 } from '@mui/material';
 
 interface MainCardProps {
   title: string;
   action?: React.ReactNode;
   children: React.ReactNode;
-  sx?: any; // Allow custom styling
+  sx?: SxProps<Theme>; // Allow custom styling
 }
 
-export const MainCard: React.FC<MainCardProps> = ({
+const MainCard: React.FC<MainCardProps> = ({
   title,
   action,
   children,
@@ -108,3 +110,5 @@ export const MainCard: React.FC<MainCardProps> = ({
     </Card>
   );
 };
+
+export default MainCard;

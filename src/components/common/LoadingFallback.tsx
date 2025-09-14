@@ -106,7 +106,7 @@ export const LoadingFallback: React.FC<LoadingFallbackProps> = ({
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fade-in-up {
           from {
             opacity: 0;

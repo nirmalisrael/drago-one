@@ -1,8 +1,8 @@
-import { ComponentType, LazyExoticComponent } from 'react';
+import type { ComponentType, LazyExoticComponent } from 'react';
 
 export interface ModuleRoute {
   path: string;
-  element: LazyExoticComponent<ComponentType<any>>;
+  element: LazyExoticComponent<ComponentType<object>>;
   title: string;
   icon?: ComponentType;
   requiresAuth?: boolean;
