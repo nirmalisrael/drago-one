@@ -67,6 +67,8 @@ const TextInput = <TFormValues extends FieldValues>({
   // Custom styling using correct theme properties
   const customStyles = {
     '& .MuiOutlinedInput-root': {
+      p: 0,
+      pr: type === 'password' ? theme.spacing(1.5) : 0,
       borderRadius: theme.shape?.borderRadius || 8,
       fontSize: theme.typography.body2.fontSize,
       transition: theme.transitions?.create?.([
@@ -106,6 +108,7 @@ const TextInput = <TFormValues extends FieldValues>({
       padding: size === 'small'
         ? theme.spacing(1.25, 1.5)
         : theme.spacing(1.5, 2),
+      pr: type !== 'password' ? theme.spacing(1.5) : 0,
       fontSize: theme.typography.body2.fontSize,
       lineHeight: theme.typography.body2.lineHeight,
       color: theme.palette.text.primary,

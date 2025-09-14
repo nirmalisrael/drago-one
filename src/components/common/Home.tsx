@@ -1,8 +1,8 @@
-import CustomButton from '@/components/ui/button/CustomButton'
 import { useForm } from 'react-hook-form';
 import { NumberInput, TextInput } from '../ui';
 import { Grid } from '@mui/material';
 import MainCard from '../ui/cards';
+import CustomButton from '../ui/button';
 
 type FormData = {
   email: string;
@@ -55,8 +55,6 @@ const Home = () => {
         <CustomButton text="Add" type='add' />
       </>
     }>
-      <h2>Essential Number Input Controls</h2>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
 
@@ -189,7 +187,8 @@ const Home = () => {
               name="otp"
               control={control}
               label="OTP"
-              maxLength={6}
+              format='#-#-#-#-#-#'
+              // maxLength={6}
               required
               helperText="Enter 6-digit OTP"
             // showCharacterCount={true}
@@ -232,7 +231,7 @@ const Home = () => {
           </Grid>
 
           {/* Age (Min/Max validation) */}
-          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+          <Grid size={{ xs: 4, sm: 6, md: 4, lg: 3 }}>
             <NumberInput
               name="age"
               control={control}
@@ -245,7 +244,7 @@ const Home = () => {
           </Grid>
 
           {/* Amount (Decimal with currency symbol) */}
-          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+          <Grid size={{ xs: 8, sm: 6, md: 4, lg: 3 }}>
             <NumberInput
               name="amount"
               control={control}
@@ -263,7 +262,7 @@ const Home = () => {
           {/* Action Buttons */}
           <Grid size={{ xs: 12 }}>
             <Grid container spacing={2} sx={{ mt: 2 }}>
-              <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+              <Grid size={{ xs: 6, sm: 6, md: 4, lg: 2 }}>
                 <CustomButton
                   text="Submit"
                   type="submit"
@@ -271,7 +270,7 @@ const Home = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+              <Grid size={{ xs: 6, sm: 6, md: 4, lg: 2 }}>
                 <CustomButton
                   text="Cancel"
                   type="back"

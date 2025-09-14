@@ -8,19 +8,28 @@ import PageNotFound from '@/components/common/PageNotFound';
 
 const AppRoutes: React.FC = () => {
   const [routes, setRoutes] = useState<ModuleRoute[]>([]);
+  const [isRoutesLoading, setIsRoutesLoading] = useState(true);
 
   useEffect(() => {
     const initializeRoutes = async () => {
       try {
+        setIsRoutesLoading(true);
         await RouteRegistry.initialize();
         setRoutes(RouteRegistry.getAllRoutes());
       } catch (error) {
         console.error('Failed to initialize routes:', error);
+      } finally {
+        setIsRoutesLoading(false);
       }
     };
 
     initializeRoutes();
   }, []);
+
+  // Show loading fallback while routes are being initialized
+  if (isRoutesLoading) {
+    return <LoadingFallback />;
+  }
 
   // Separate public and protected routes
   const publicRoutes = routes.filter(route => route.requiresAuth === false);
@@ -36,23 +45,12 @@ const AppRoutes: React.FC = () => {
         path={route.path}
         element={
           <Suspense fallback={<LoadingFallback />}>
-            {/* {isPublic ? ( */}
             <RouteComponent />
-            {/* ) : (
-                <ProtectedRoute
-                  requiresAuth={route.requiresAuth}
-                  roles={route.roles}
-                >
-                  <RouteComponent />
-                </ProtectedRoute>
-              )} */}
           </Suspense>
         }
       />
     );
   };
-
-
 
   return (
     <Routes>
@@ -61,7 +59,6 @@ const AppRoutes: React.FC = () => {
 
       {/* Protected Routes with Layout */}
       <Route path="/*" element={
-        // <ProtectedRoute>
         <Layout>
           <Routes>
             {protectedRoutes.map(route => renderRoute(route, false))}
@@ -70,7 +67,6 @@ const AppRoutes: React.FC = () => {
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Layout>
-        // </ProtectedRoute>
       } />
     </Routes>
   );

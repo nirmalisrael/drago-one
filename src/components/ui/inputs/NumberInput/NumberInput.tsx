@@ -403,6 +403,8 @@ const NumberInput = <TFormValues extends FieldValues>({
   const customStyles = {
     '& .MuiOutlinedInput-root': {
       borderRadius: theme.shape?.borderRadius || 8,
+      p: 0,
+      pr: mask ? theme.spacing(1.5) : 0,
       fontSize: theme.typography.body2.fontSize,
       transition: theme.transitions?.create?.([
         'border-color',
@@ -433,7 +435,11 @@ const NumberInput = <TFormValues extends FieldValues>({
       },
     },
     '& .MuiInputBase-input': {
-      padding: size === 'small' ? '10px 12px' : '12px 16px',
+      padding: size === 'small'
+        ? theme.spacing(1.25, 1.5)
+        : theme.spacing(1.5, 2),
+      pr: !mask ? theme.spacing(1.5) : 0,
+      pl: startAdornment ? 0 : theme.spacing(1.5),
       fontSize: theme.typography.body2.fontSize,
       fontFamily: formatPattern ? 'monospace' : 'inherit',
       letterSpacing: formatPattern ? '0.5px' : 'normal',
@@ -562,14 +568,12 @@ const NumberInput = <TFormValues extends FieldValues>({
                                   fontSize: 'inherit',
                                   '&:before, &:after': { display: 'none' },
                                   '& .MuiSelect-select': {
-                                    paddingRight: '20px !important',
-                                    paddingY: 0,
                                   }
                                 }}
                               >
                                 {Object.entries(COUNTRY_CODES).map(([key, country]) => (
                                   <MenuItem key={key} value={key}>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.25 }}>
                                       <span>{country.flag}</span>
                                       <Typography variant="body2">{country.code}</Typography>
                                     </Box>
@@ -582,13 +586,13 @@ const NumberInput = <TFormValues extends FieldValues>({
                               size="small"
                               label={`${COUNTRY_CODES[selectedCountryCode].flag} ${COUNTRY_CODES[selectedCountryCode].code}`}
                               variant="outlined"
-                              sx={{ height: 'auto', fontSize: 'inherit' }}
+                              sx={{ height: 'auto', fontSize: 'inherit', ml: theme.spacing(1.5) }}
                             />
                           )}
                         </InputAdornment>
                       )}
                       {startAdornment && (
-                        <InputAdornment position="start">
+                        <InputAdornment position="start" sx={{ ml: theme.spacing(1.5) }}>
                           {startAdornment}
                         </InputAdornment>
                       )}
