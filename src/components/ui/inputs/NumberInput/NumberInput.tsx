@@ -403,7 +403,7 @@ const NumberInput = <TFormValues extends FieldValues>({
   const customStyles = {
     '& .MuiOutlinedInput-root': {
       borderRadius: theme.shape?.borderRadius || 8,
-      p: 0,
+      pl: 0,
       pr: mask ? theme.spacing(1.5) : 0,
       fontSize: theme.typography.body2.fontSize,
       transition: theme.transitions?.create?.([

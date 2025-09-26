@@ -1,7 +1,6 @@
-// In your Settings.tsx or wherever you want the theme switcher
+import MainCard from "../ui/cards";
+import ThemeSettings from "../ui/theme-settings";
 
-import { MainCard } from "@/components/ui/cards/MainCard";
-import { ThemeSettings } from "@/components/ui/theme-settings";
 
 const Settings = () => {
   return (
