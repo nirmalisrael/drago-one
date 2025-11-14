@@ -121,6 +121,7 @@ const TextInput = <TFormValues extends FieldValues>({
       '&.Mui-disabled': {
         color: theme.palette.text.disabled,
         WebkitTextFillColor: theme.palette.text.disabled,
+        cursor: 'not-allowed',
       },
     },
     '& .MuiInputBase-inputMultiline': {

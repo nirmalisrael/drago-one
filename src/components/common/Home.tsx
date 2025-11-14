@@ -66,6 +66,7 @@ const Home = () => {
               label="Email"
               type="email"
               required
+              autoFocus
             />
           </Grid>
 

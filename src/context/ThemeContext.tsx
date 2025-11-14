@@ -18,6 +18,10 @@ export const AppThemeProvider: React.FC<AppThemeProviderProps> = ({ children }) 
     const savedTheme = localStorage.getItem('app-theme') as ThemeName;
     if (savedTheme && themes[savedTheme]) {
       setCurrentTheme(savedTheme);
+    } else if (savedTheme) {
+      // If saved theme doesn't exist in our new themes, clear it and use default
+      console.warn(`Saved theme '${savedTheme}' no longer exists, using default theme`);
+      localStorage.removeItem('app-theme');
     }
   }, []);
 
@@ -27,7 +31,14 @@ export const AppThemeProvider: React.FC<AppThemeProviderProps> = ({ children }) 
     localStorage.setItem('app-theme', themeName);
   }, []);
 
-  const theme = React.useMemo(() => createAppTheme(themes[currentTheme]), [currentTheme]);
+  const theme = React.useMemo(() => {
+    const themeConfig = themes[currentTheme];
+    if (!themeConfig) {
+      console.warn(`Theme '${currentTheme}' not found, falling back to 'academicExcellence'`);
+      return createAppTheme(themes['academicExcellence']);
+    }
+    return createAppTheme(themeConfig);
+  }, [currentTheme]);
 
   const value = React.useMemo(
     () => ({

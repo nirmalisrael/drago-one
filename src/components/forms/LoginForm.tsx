@@ -172,7 +172,7 @@ const LoginForm: React.FC = () => {
           </Box>
 
           {/* Form Debug Info (Development only) */}
-          {process.env.NODE_ENV === 'develodpment' && (
+          {process.env.NODE_ENV === 'development' && (
             <Box sx={{ mt: 3, p: 2, backgroundColor: theme.palette.grey[50], borderRadius: 1 }}>
               <Typography variant="caption" display="block" gutterBottom>
                 Form Values (Debug):

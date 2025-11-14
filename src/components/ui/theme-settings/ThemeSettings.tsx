@@ -17,6 +17,9 @@ import { useTheme } from '@/hooks/useTheme';
 const ThemeSettings: React.FC = () => {
   const { currentTheme, setTheme, availableThemes } = useTheme();
 
+  // Get current theme info with fallback
+  const currentThemeInfo = availableThemes[currentTheme] || availableThemes['academicExcellence'];
+
   return (
     <Card>
       <CardContent>
@@ -24,14 +27,14 @@ const ThemeSettings: React.FC = () => {
           <PaletteIcon />
           <Typography variant="h6">Theme Selection</Typography>
           <Chip
-            label={availableThemes[currentTheme].displayName}
+            label={currentThemeInfo?.displayName || 'Unknown Theme'}
             size="small"
             color="primary"
           />
         </Box>
 
         <Grid container spacing={3}>
-          {Object.values(availableThemes).map((theme) => (
+          {Object.values(availableThemes).filter(theme => theme && theme.colors).map((theme) => (
             <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={theme.name}>
               <Card
                 aria-pressed={currentTheme === theme.name}

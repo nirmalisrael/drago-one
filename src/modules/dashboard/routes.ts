@@ -5,6 +5,7 @@ const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage'));
 const ReportsPage = lazy(() => import('./pages/ReportsPage'));
 const Home = lazy(() => import('@/components/common/Home'));
+const EducationalERPPermissions = lazy(() => import('./pages/EducationalERPPermissions'));
 
 // Lazy load dashboard pages
 class DashboardRoutes implements RouteModule {
@@ -54,6 +55,15 @@ class DashboardRoutes implements RouteModule {
           requiresAuth: true,
           showInMenu: true,
           menuOrder: 3,
+          roles: ['admin']
+        },
+        {
+          path: '/roles-rights',
+          element: EducationalERPPermissions,
+          title: 'Roles & Rights',
+          requiresAuth: true,
+          showInMenu: true,
+          menuOrder: 4,
           roles: ['admin']
         }
       ]

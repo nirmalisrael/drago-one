@@ -13,5 +13,6 @@ export default defineConfig({
   server: {
     host: '192.168.1.243',  // Change to your desired host
     port: 3001,  // Set to your desired port
+    open: true
   }
 })
